@@ -3,164 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 年度尾牙暨年終教育訓練</title>
+    <title>2025 路斯科技年度尾牙暨教育訓練</title>
+    <!-- 引入 Google Fonts (Noto Sans TC) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
             --primary-color: #FF6B6B;
+            --primary-dark: #ee5253;
             --secondary-color: #4ECDC4;
-            --bg-color: #f7f9fc;
+            --accent-color: #ffeaa7;
+            --bg-color: #f0f3f8;
             --card-bg: #ffffff;
-            --text-color: #2c3e50;
+            --text-color: #2d3436;
+            --timeline-color: #dfe6e9;
         }
 
         body {
-            font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft JhengHei", sans-serif;
+            font-family: 'Noto Sans TC', "Helvetica Neue", Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 80px; /* 留給懸浮按鈕空間 */
         }
 
-        /* 圖片與媒體通用樣式 */
-        .media-container {
-            margin-top: 15px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .card-img {
-            width: 100%;
-            height: auto;
-            display: block;
-            background-color: #eee;
-        }
-
-        /* 影片樣式 */
-        .card-video {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            display: block;
-            background-color: #000;
-        }
-        @media (min-width: 768px) {
-            .card-video { max-width: 400px; margin: 0 auto; border-radius: 10px;}
-        }
-
-        /* 圖片輪播 (Slider) 樣式 */
-        .slider-container {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 10px;
-            padding-bottom: 10px;
-        }
-        .slider-item {
-            flex: 0 0 85%;
-            scroll-snap-align: center;
-        }
-        .slider-item img {
-            width: 100%;
-            border-radius: 10px;
-            height: 350px;
-            object-fit: cover;
-            object-position: center; 
-        }
-
-        /* --- Hero 區域 --- */
+        /* --- Hero 區域 (背景圖+漸層) --- */
         .hero {
-            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.9) 0%, rgba(255, 142, 83, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=1000&auto=format&fit=crop'); /* 示意背景圖 */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: white;
-            padding: 50px 15px 70px;
+            padding: 60px 20px 80px;
             text-align: center;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
             position: relative;
+            z-index: 1;
         }
 
-        /* --- 公司名稱品牌標籤設計 --- */
         .company-badge {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.2); /* 半透明白底 */
-            backdrop-filter: blur(5px);            /* 微模糊背景 */
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 6px 20px;
-            border-radius: 30px;
-            font-size: 0.9em;
-            font-weight: bold;
-            letter-spacing: 2px; /* 字距拉開更有質感 */
-            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
             text-transform: uppercase;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* 標題樣式 */
         .hero h1 { 
             margin: 0; 
-            font-weight: 800; 
+            font-weight: 900; 
             letter-spacing: 1px;
-            white-space: nowrap; 
-            font-size: 5.5vw; 
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        @media (min-width: 768px) {
-            .hero h1 { font-size: 2.5em; }
+            font-size: 2.2em; 
+            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            line-height: 1.3;
         }
         
         .hero p { 
             font-size: 1.1em; 
             opacity: 0.95; 
-            margin-top: 10px; 
+            margin-top: 15px; 
             font-weight: 500;
         }
 
         .countdown-box {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--primary-color);
             display: inline-block;
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 50px;
-            margin-top: 15px;
-            font-weight: bold;
-            border: 1px solid rgba(255,255,255,0.4);
+            margin-top: 20px;
+            font-weight: 800;
+            font-size: 1.1em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
 
+        /* --- 容器 --- */
         .container {
             max-width: 800px;
-            margin: -50px auto 40px;
-            padding: 20px;
+            margin: -60px auto 0;
+            padding: 0 15px;
             position: relative;
+            z-index: 2;
         }
 
-        /* 分頁按鈕 */
+        /* --- 黏性導航選單 (Sticky Nav) --- */
+        .tabs-sticky-container {
+            position: sticky;
+            top: 10px; /* 距離頂部 10px */
+            z-index: 100;
+            margin-bottom: 25px;
+        }
+
         .tabs-wrapper {
             overflow-x: auto;
             white-space: nowrap;
-            padding-bottom: 5px;
-            margin-bottom: 20px;
+            padding: 5px 5px 15px 5px; /* 下方留空間給陰影 */
             -webkit-overflow-scrolling: touch;
+            /* 隱藏滾動條 */
+            scrollbar-width: none; 
         }
+        .tabs-wrapper::-webkit-scrollbar { display: none; }
 
         .tabs {
             display: inline-flex;
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             padding: 8px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
             gap: 8px;
+            border: 1px solid rgba(255,255,255,0.8);
         }
 
         .tab-btn {
             background: transparent;
             border: none;
-            padding: 10px 18px; 
+            padding: 10px 20px; 
             font-size: 0.95em;
-            font-weight: bold;
-            color: #888;
+            font-weight: 700;
+            color: #95a5a6;
             cursor: pointer;
-            border-radius: 10px;
+            border-radius: 14px;
             transition: all 0.3s ease;
             white-space: nowrap;
         }
@@ -168,215 +153,326 @@
         .tab-btn.active {
             background-color: var(--primary-color);
             color: white;
-            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+            transform: translateY(-1px);
         }
 
-        /* 卡片設計 */
-        .content-section { display: none; animation: fadeIn 0.5s ease; }
+        /* --- 內容區域 & 時間軸樣式 --- */
+        .content-section { 
+            display: none; 
+            animation: slideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            /* 為了時間軸線條 */
+            position: relative;
+            padding-left: 10px; 
+        }
         .content-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* 時間軸垂直線 (只在有 .timeline-mode 的區域顯示) */
+        .timeline-mode {
+            border-left: 3px solid var(--timeline-color);
+            margin-left: 10px;
+            padding-left: 25px;
+        }
 
         .event-card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
-            border-left: 5px solid #ddd;
-            transition: transform 0.2s;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
 
-        .event-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
-        .event-card.morning { border-left-color: #FFC312; }
-        .event-card.afternoon { border-left-color: #F79F1F; }
-        .event-card.evening { border-left-color: #EA2027; }
+        /* 時間軸圓點 */
+        .timeline-mode .event-card::before {
+            content: '';
+            position: absolute;
+            left: -35px; /* 調整圓點位置 */
+            top: 25px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid var(--timeline-color);
+            box-shadow: 0 0 0 3px var(--bg-color); /* 讓線條看起來斷開 */
+        }
+        /* 根據時間不同顏色 */
+        .timeline-mode .event-card.morning::before { border-color: #FFC312; }
+        .timeline-mode .event-card.afternoon::before { border-color: #F79F1F; }
+        .timeline-mode .event-card.evening::before { border-color: var(--primary-color); }
+
+        .event-card:active { transform: scale(0.98); }
 
         .time-badge {
-            background-color: #f0f2f6; color: #555; padding: 4px 12px;
-            border-radius: 20px; font-size: 0.85em; font-weight: bold;
-            display: inline-block; margin-bottom: 10px;
+            background-color: #eff3f8; 
+            color: #636e72; 
+            padding: 6px 14px;
+            border-radius: 12px; 
+            font-size: 0.85em; 
+            font-weight: 800;
+            display: inline-block; 
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
         }
 
-        .event-title { margin: 0 0 5px 0; color: #333; font-size: 1.3em; }
-        .location { color: #666; font-size: 0.95em; display: flex; align-items: center; gap: 5px; margin-bottom: 10px;}
+        .event-title { 
+            margin: 0 0 8px 0; 
+            color: #2d3436; 
+            font-size: 1.35em; 
+            font-weight: 700;
+            line-height: 1.4;
+        }
         
-        .desc-box {
-            background-color: #fffdf5;
-            border: 1px dashed #e0d4b4;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 12px;
-            font-size: 0.95em;
-            color: #555;
-            line-height: 1.6;
+        .location { 
+            color: #636e72; 
+            font-size: 0.95em; 
+            display: flex; 
+            align-items: center; 
+            flex-wrap: wrap;
+            gap: 8px; 
+            margin-bottom: 15px;
         }
-
-        /* --- 裝備區塊排版優化 --- */
-        .equipment-layout {
-            display: flex;
-            flex-direction: column; /* 手機預設：上下排 */
-            gap: 15px;
-        }
-        .equipment-text {
-            flex: 1;
-            width: 100%;
-        }
-        .equipment-img {
-            width: 100%;
-            max-width: 280px; /* 手機版圖片變大，上限 280px */
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            object-fit: cover;
-            object-position: top center;
-        }
-
-        /* 電腦版 (寬度大於 768px) */
-        @media (min-width: 768px) {
-            .equipment-layout {
-                flex-direction: row; /* 改為左右排 */
-                align-items: center; /* 垂直置中 */
-                text-align: left;
-            }
-            .equipment-img {
-                width: 200px; /* 電腦版限制寬度，放在右側 */
-                max-width: 200px;
-                margin-left: 15px;
-            }
-        }
-
-        .video-caption-normal {
-            background-color: #e3f2fd;
-            color: #444;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-size: 0.95em;
-            border-left: 4px solid #2196f3;
-        }
-
-        .xiaodu-caption {
-            background: linear-gradient(to right, #2c3e50, #4ca1af);
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        .xiaodu-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #ffeb3b;
-            text-align: center;
-        }
-
+        
         .map-btn {
             text-decoration: none;
-            background-color: #e3f2fd;
-            color: #1976d2;
-            padding: 3px 10px;
-            border-radius: 5px;
-            font-size: 0.85em;
-            margin-left: 8px;
-            font-weight: bold;
-            border: 1px solid #bbdefb;
-            display: inline-block;
+            background-color: white;
+            color: #0984e3;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+            border: 1px solid #74b9ff;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 5px rgba(33, 150, 243, 0.1);
         }
+
+        .desc-box {
+            background-color: #fcfcfc;
+            border: 1px dashed #dcdde1;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.7;
+        }
+        .desc-box strong { color: #2d3436; }
+
+        /* --- 媒體樣式 --- */
+        .media-container {
+            margin-top: 18px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .card-img { width: 100%; height: auto; display: block; }
+        .card-video { width: 100%; display: block; background: #000; }
+
+        /* Slider */
+        .slider-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 15px;
+            padding-bottom: 10px;
+            /* 隱藏滾動條 */
+            scrollbar-width: none;
+        }
+        .slider-container::-webkit-scrollbar { display: none; }
         
+        .slider-item {
+            flex: 0 0 90%;
+            scroll-snap-align: center;
+        }
+        .slider-item img {
+            width: 100%;
+            border-radius: 12px;
+            height: 250px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- 其他元件 --- */
         .action-btn {
             display: block;
             text-align: center;
-            background-color: #FF4B4B;
+            background: linear-gradient(to right, #FF4B4B, #FF6B6B);
             color: white;
             text-decoration: none;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 14px;
+            border-radius: 14px;
+            margin-top: 15px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 75, 75, 0.4);
+            transition: transform 0.2s;
         }
-        .action-btn:hover { background-color: #e03e3e; }
+        .action-btn:active { transform: scale(0.97); }
+
+        .video-caption-normal {
+            background-color: #eaf6ff;
+            color: #2c3e50;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 12px;
+            font-size: 0.95em;
+            border-left: 4px solid #3498db;
+        }
+
+        .xiaodu-caption {
+            background: linear-gradient(135deg, #2c3e50, #000000);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .xiaodu-title {
+            font-size: 1.4em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            color: #f1c40f;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 裝備排版 */
+        .equipment-layout { display: flex; flex-direction: column; gap: 15px; }
+        .equipment-img { width: 100%; border-radius: 12px; object-fit: cover; }
+        @media (min-width: 768px) {
+            .equipment-layout { flex-direction: row; align-items: center; }
+            .equipment-img { width: 200px; margin-left: auto; }
+            .hero h1 { font-size: 3em; }
+        }
+
+        /* 浮動按鈕 (Floating Action Button) */
+        .fab-survey {
+            position: fixed;
+            bottom: 25px;
+            right: 20px;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.6);
+            z-index: 999;
+            text-decoration: none;
+            font-size: 24px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+        .fab-tooltip {
+            position: absolute;
+            right: 70px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .fab-survey:hover .fab-tooltip { opacity: 1; }
 
         .coming-soon-card {
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 2px dashed #eee;
         }
-        .cs-icon { font-size: 3em; color: #ccc; margin-bottom: 15px; }
-        .cs-text { font-size: 1.2em; color: #888; font-weight: bold; }
+        .cs-icon { font-size: 4em; color: #dfe6e9; margin-bottom: 20px; }
+        .cs-text { font-size: 1.4em; color: #b2bec3; font-weight: 700; }
 
-        .form-section {
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            margin-top: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            text-align: center;
-        }
         .form-container {
             position: relative;
             overflow: hidden;
             width: 100%;
-            padding-top: 100%;
+            padding-top: 120%; /* 調整比例讓表單顯示多一點 */
+            border-radius: 16px;
+            border: 1px solid #eee;
         }
         .form-container iframe {
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
+            position: absolute; top: 0; left: 0; bottom: 0; right: 0;
             width: 100%; height: 100%; border: none;
         }
 
-        footer { text-align: center; padding: 30px; color: #888; font-size: 0.8em; }
-
-        @media (max-width: 600px) {
-            .form-container { padding-top: 150%; }
+        footer { 
+            text-align: center; 
+            padding: 40px 20px; 
+            color: #b2bec3; 
+            font-size: 0.85em; 
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
 
-    <div class="hero">
-        <!-- 公司名稱標籤：取代原本的 LOGO 圖片 -->
-        <div class="company-badge">路斯科技 LUZCOGI</div>
+    <!-- 浮動調查按鈕 -->
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfLr3xguRZqze_waXQSWjK-oNlW2J295LJz19SCBUhNGTi8ZQ/viewform" target="_blank" class="fab-survey">
+        <i class="fas fa-edit"></i>
+        <span class="fab-tooltip">填寫晚餐調查</span>
+    </a>
 
-        <h1>2025 年度尾牙暨年終教育訓練</h1>
+    <div class="hero">
+        <div class="company-badge">路斯科技 LUZCOGI</div>
+        <h1>2025 年度尾牙<br>暨年終教育訓練</h1>
         <p>專業精進 · 團隊凝聚 · 榮耀時刻</p>
         <div class="countdown-box" id="countdown">計算中...</div>
     </div>
 
     <div class="container">
         
-        <!-- 滑動選單 -->
-        <div class="tabs-wrapper">
-            <div class="tabs">
-                <button class="tab-btn active" onclick="openTab(event, 'day1')">Day 1 (1/22)</button>
-                <button class="tab-btn" onclick="openTab(event, 'day2')">Day 2 (1/23)</button>
-                <button class="tab-btn" onclick="openTab(event, 'day3')">Day 3 (1/24)</button>
-                <button class="tab-btn" onclick="openTab(event, 'schedule')">📅 教育訓練時程</button>
-                <button class="tab-btn" onclick="openTab(event, 'abroad')">✈️ 國外旅遊</button>
-                <button class="tab-btn" onclick="openTab(event, 'room')">🛏️ 房型分配</button>
-                <button class="tab-btn" onclick="openTab(event, 'seat')">🍽️ 座位表</button>
-                <button class="tab-btn" onclick="openTab(event, 'car')">🚗 車輛安排</button>
+        <!-- 黏性滑動選單 -->
+        <div class="tabs-sticky-container">
+            <div class="tabs-wrapper">
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="openTab(event, 'day1')">Day 1 (1/22)</button>
+                    <button class="tab-btn" onclick="openTab(event, 'day2')">Day 2 (1/23)</button>
+                    <button class="tab-btn" onclick="openTab(event, 'day3')">Day 3 (1/24)</button>
+                    <button class="tab-btn" onclick="openTab(event, 'schedule')">📅 訓練時程</button>
+                    <button class="tab-btn" onclick="openTab(event, 'abroad')">✈️ 國外旅遊</button>
+                    <button class="tab-btn" onclick="openTab(event, 'room')">🛏️ 房型分配</button>
+                    <button class="tab-btn" onclick="openTab(event, 'seat')">🍽️ 座位表</button>
+                    <button class="tab-btn" onclick="openTab(event, 'car')">🚗 車輛安排</button>
+                    <button class="tab-btn" onclick="openTab(event, 'survey')">📝 調查表</button>
+                </div>
             </div>
         </div>
 
-        <!-- Day 1 -->
-        <div id="day1" class="content-section active">
+        <!-- Day 1 (Timeline Mode) -->
+        <div id="day1" class="content-section active timeline-mode">
             <!-- 午餐 -->
             <div class="event-card morning">
                 <span class="time-badge">11:00 - 12:00</span>
-                <h3 class="event-title">中餐：客家風味桌菜</h3>
+                <h3 class="event-title">中餐：夢松園客家風味</h3>
                 <div class="location">
-                    <i class="fas fa-map-marker-alt"></i> 夢松園庭園餐廳
-                    <a href="https://maps.app.goo.gl/W69Di9t3hopAKHUk7" target="_blank" class="map-btn"><i class="fas fa-location-arrow"></i> 導航</a>
+                    <i class="fas fa-map-marker-alt" style="color:#FF6B6B"></i> 夢松園庭園餐廳
+                    <a href="https://maps.app.goo.gl/W69Di9t3hopAKHUk7" target="_blank" class="map-btn">導航 <i class="fas fa-external-link-alt"></i></a>
                 </div>
                 <div class="desc-box">
                     🌿 <strong>山林間的慢活饗宴</strong><br>
-                    感謝過去多年來支持夢松園的老朋友和新朋友！<br>
-                    這裡有招牌的客家美味、海產與山產野味，<br>
-                    讓我們享受美好的旅行慢活時光，不虛此行。
+                    這裡有招牌的客家美味、海產與山產野味，讓我們享受美好的旅行慢活時光。
                 </div>
             </div>
 
@@ -385,11 +481,11 @@
                 <span class="time-badge">13:00 - 17:30</span>
                 <h3 class="event-title">湯悅溫泉會館 (教育訓練)</h3>
                 <div class="location">
-                    <i class="fas fa-building"></i> 湯悅會議室
-                    <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="map-btn"><i class="fas fa-location-arrow"></i> 導航</a>
+                    <i class="fas fa-building" style="color:#4ECDC4"></i> 湯悅會議室
+                    <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="map-btn">導航 <i class="fas fa-external-link-alt"></i></a>
                 </div>
                 <div class="media-container">
-                    <img src="meeting1.jpg?v=3" class="card-img" alt="前置會議">
+                    <img src="meeting1.jpg?v=3" class="card-img" alt="前置會議" loading="lazy">
                 </div>
             </div>
 
@@ -397,14 +493,14 @@
             <div class="event-card evening">
                 <span class="time-badge">18:00 - 19:00</span>
                 <h3 class="event-title">晚餐：個人鍋物</h3>
-                <div class="location"><i class="fas fa-utensils"></i> 湯悅溫泉會館餐廳</div>
-                <div class="desc-box" style="border-color: #FF6B6B; background-color: #fff5f5;">
+                <div class="location"><i class="fas fa-utensils" style="color:#e17055"></i> 湯悅溫泉會館餐廳</div>
+                <div class="desc-box" style="border-left: 4px solid #FF6B6B; background-color: #fff5f5;">
                     ⚠️ <strong>重要提醒：</strong><br>
                     請大家務必填寫 Google 表單選擇湯頭與肉品！
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfLr3xguRZqze_waXQSWjK-oNlW2J295LJz19SCBUhNGTi8ZQ/viewform?usp=dialog" target="_blank" class="action-btn">
+                        👉 點我前往填寫調查表
+                    </a>
                 </div>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfLr3xguRZqze_waXQSWjK-oNlW2J295LJz19SCBUhNGTi8ZQ/viewform?usp=dialog" target="_blank" class="action-btn">
-                    👉 點我前往填寫調查表
-                </a>
             </div>
             
             <!-- 泡湯 -->
@@ -414,31 +510,26 @@
                 <div class="location">湯悅溫泉會館</div>
                 <div class="desc-box">
                     <strong>♨️ 泰安溫泉 - 48℃ 極致玉泉</strong><br>
-                    泉質潤白如玉，散發祥和脫俗氣息，盡情投入自然的懷抱。<br><br>
-                    <strong>🕒 開放時段：</strong>
-                    <ul style="margin: 5px 0 10px 20px; padding: 0;">
-                        <li>平日 (週一至五)：08:30~12:00 / 14:30~21:00</li>
-                        <li>假日 (六日、連假)：08:30~21:00 (全日)</li>
-                    </ul>
-                    <small>🔴 請著泳衣、泳帽進場。禁止使用泳圈。</small>
+                    泉質潤白如玉，盡情投入自然的懷抱。<br>
+                    <small style="display:block; margin-top:8px; color:#888;">🔴 請著泳衣、泳帽進場。禁止使用泳圈。</small>
                 </div>
                 <div class="media-container">
-                    <img src="tangyue.jpg" class="card-img" alt="湯悅溫泉">
+                    <img src="tangyue.jpg" class="card-img" alt="湯悅溫泉" loading="lazy">
                 </div>
             </div>
         </div>
 
-        <!-- Day 2 -->
-        <div id="day2" class="content-section">
+        <!-- Day 2 (Timeline Mode) -->
+        <div id="day2" class="content-section timeline-mode">
             <!-- 教育訓練 -->
             <div class="event-card morning">
                 <span class="time-badge">08:30 - 12:00</span>
-                <h3 class="event-title">湯悅溫泉會館 (教育訓練)</h3>
+                <h3 class="event-title">教育訓練 Part 2</h3>
                 <div class="location">
-                    <i class="fas fa-chalkboard-teacher"></i> 湯悅會議室
+                    <i class="fas fa-chalkboard-teacher" style="color:#0984e3"></i> 湯悅會議室
                 </div>
                 <div class="media-container">
-                    <img src="meeting2.jpg?v=3" class="card-img" alt="教育訓練">
+                    <img src="meeting2.jpg?v=3" class="card-img" alt="教育訓練" loading="lazy">
                 </div>
             </div>
 
@@ -446,26 +537,24 @@
             <div class="event-card morning">
                 <span class="time-badge">12:00 - 13:00</span>
                 <h3 class="event-title">午餐：精緻便當</h3>
-                <div class="location"><i class="fas fa-box-open"></i> 湯悅會議室</div>
+                <div class="location"><i class="fas fa-box-open" style="color:#e67e22"></i> 湯悅會議室</div>
             </div>
 
             <!-- 山訓 -->
             <div class="event-card afternoon">
                 <span class="time-badge">13:30 - 17:00</span>
-                <h3 class="event-title">極限山訓挑戰：攀岩、垂降、走鋼索</h3>
+                <h3 class="event-title">極限山訓挑戰</h3>
                 <div class="location">
-                    <i class="fas fa-mountain"></i> 苗栗騰龍溫泉山莊
-                    <a href="https://maps.app.goo.gl/1ZpPaxXGPxcfsNbS7" target="_blank" class="map-btn"><i class="fas fa-location-arrow"></i> 導航</a>
+                    <i class="fas fa-mountain" style="color:#27ae60"></i> 苗栗騰龍溫泉山莊
+                    <a href="https://maps.app.goo.gl/1ZpPaxXGPxcfsNbS7" target="_blank" class="map-btn">導航 <i class="fas fa-external-link-alt"></i></a>
                 </div>
+                <p style="margin:0 0 10px 0; color:#666;">🧗 攀岩、垂降、走鋼索，挑戰自我極限！</p>
                 
                 <div class="media-container">
                     <div class="slider-container">
-                        <div class="slider-item"><img src="rappelling.jpg" alt="垂降"></div>
-                        <div class="slider-item"><img src="rock_climbing.jpg" alt="攀岩"></div>
-                        <div class="slider-item"><img src="tightrope.jpg" alt="走鋼索"></div>
-                    </div>
-                    <div style="text-align: center; font-size: 0.8em; color: #999; margin-top: 5px;">
-                        (可左右滑動查看更多照片 ↔️)
+                        <div class="slider-item"><img src="rappelling.jpg" alt="垂降" loading="lazy"></div>
+                        <div class="slider-item"><img src="rock_climbing.jpg" alt="攀岩" loading="lazy"></div>
+                        <div class="slider-item"><img src="tightrope.jpg" alt="走鋼索" loading="lazy"></div>
                     </div>
                 </div>
             </div>
@@ -475,17 +564,17 @@
                 <span class="time-badge">18:00 - 21:00</span>
                 <h3 class="event-title">🏆 年度尾牙晚宴</h3>
                 <div class="location">
-                    湯悅宴會廳
-                    <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="map-btn"><i class="fas fa-location-arrow"></i> 導航</a>
+                    <i class="fas fa-wine-glass-alt" style="color:#c0392b"></i> 湯悅宴會廳
                 </div>
-                <div class="desc-box">
-                    🎉 盡情享用美食，期待大獎降臨！
+                <div class="desc-box" style="background: linear-gradient(135deg, #fff, #fff8e1); border: 1px solid #ffeaa7;">
+                    🎉 盡情享用美食，期待大獎降臨！<br>
+                    <span style="font-size:0.9em; color:#aaa;">(記得穿得帥氣美麗喔!)</span>
                 </div>
             </div>
         </div>
 
-        <!-- Day 3 -->
-        <div id="day3" class="content-section">
+        <!-- Day 3 (Timeline Mode) -->
+        <div id="day3" class="content-section timeline-mode">
             <div class="event-card morning">
                 <span class="time-badge">10:30</span>
                 <h3 class="event-title">退房 + 集合</h3>
@@ -495,16 +584,14 @@
             <!-- 棗莊午餐 -->
             <div class="event-card morning">
                 <span class="time-badge">11:30 - 12:30</span>
-                <h3 class="event-title">中餐：棗莊客家料理</h3>
+                <h3 class="event-title">中餐：棗莊古藝庭園膳坊</h3>
                 <div class="location">
-                    <i class="fas fa-utensils"></i> 棗莊古藝庭園膳坊
-                    <a href="https://maps.app.goo.gl/4GRiSoTYPmimYJTDA" target="_blank" class="map-btn"><i class="fas fa-location-arrow"></i> 導航</a>
+                    <i class="fas fa-utensils" style="color:#d35400"></i> 棗莊
+                    <a href="https://maps.app.goo.gl/4GRiSoTYPmimYJTDA" target="_blank" class="map-btn">導航 <i class="fas fa-external-link-alt"></i></a>
                 </div>
                 <div class="desc-box">
-                    🏮 <strong>古物陳列與紅棗美食的結合</strong><br>
-                    棗莊邁入第18年，莫忘初衷。<br>
-                    這裡原本是古物陳列館，現在結合了創意紅棗料理。<br>
-                    讓大家在品嚐美食的同時，也能透過導覽了解早期台灣生活情景，珍惜當下。
+                    🏮 <strong>紅棗美食與古物陳列的結合</strong><br>
+                    在品嚐美食的同時，也能透過導覽了解早期台灣生活情景，珍惜當下。
                 </div>
             </div>
 
@@ -513,40 +600,32 @@
                 <span class="time-badge">13:00 - 15:00</span>
                 <h3 class="event-title">JEA 橋頭堡打水彈</h3>
                 <div class="location">
-                    <i class="fas fa-crosshairs"></i> JEA 橋頭堡
-                    <a href="https://maps.app.goo.gl/K2qVagj5WAQhMwcDA" target="_blank" class="map-btn"><i class="fas fa-location-arrow"></i> 導航</a>
+                    <i class="fas fa-crosshairs" style="color:#2c3e50"></i> JEA 橋頭堡
+                    <a href="https://maps.app.goo.gl/K2qVagj5WAQhMwcDA" target="_blank" class="map-btn">導航 <i class="fas fa-external-link-alt"></i></a>
                 </div>
                 
-                <!-- 裝備提醒區 (Flexbox 排版) -->
-                <div class="desc-box" style="border-color: #4ECDC4; background-color: #e8f8f5;">
+                <div class="desc-box" style="background-color: #e8f8f5; border-color: #4ECDC4;">
                     <div class="equipment-layout">
                         <div class="equipment-text">
                             🛠️ <strong>裝備小叮嚀：</strong><br>
                             歡迎自備愛槍參戰！但為了確保安全與公平，<strong>槍枝規格有所限制</strong>。<br>
                             若有興趣攜帶個人裝備，請務必先<strong>洽詢福委會</strong>確認規格喔！
                         </div>
-                        <!-- gun.jpg: 手機版放大，電腦版靠右 -->
-                        <img src="gun.jpg" class="equipment-img" alt="槍枝參考圖">
+                        <img src="gun.jpg" class="equipment-img" alt="槍枝參考圖" loading="lazy">
                     </div>
                 </div>
 
-                <!-- 第一部：回顧影片 -->
                 <div class="media-container">
-                    <video controls playsinline class="card-video">
+                    <video controls playsinline class="card-video" poster="video-cover.jpg">
                         <source src="laser_war.mp4" type="video/mp4">
                         您的瀏覽器不支援影片播放。
                     </video>
                 </div>
                 <div class="video-caption-normal">
                     <strong>🎬 歡樂回顧：</strong><br>
-                    大家還記得之前打鐳戰時，笑聲不斷的畫面嗎？<br>
-                    這次的水彈一樣刺激好玩，不用害怕也不用擔心，<br>
-                    讓我們一起安全地釋放壓力、盡情享受吧！💪
+                    這次的水彈一樣刺激好玩，不用害怕也不用擔心，一起安全地釋放壓力吧！💪
                 </div>
 
-                <hr style="border: 0; border-top: 1px dashed #ddd; margin: 20px 0;">
-
-                <!-- 第二部：小杜影片 -->
                 <div class="media-container">
                     <video controls playsinline class="card-video">
                         <source src="xiaodu.mp4" type="video/mp4">
@@ -555,10 +634,8 @@
                 </div>
                 <div class="xiaodu-caption">
                     <div class="xiaodu-title">🔥 傳說，重現戰場！</div>
-                    沉睡已久的男人回來了！？<br>
                     還記得曾經這個男人在戰場中大殺四方、橫掃千軍嗎？<br>
-                    這次... 小杜會再帶給我們怎麼樣的激情表現呢？<br>
-                    <strong>讓我們拭目以待！</strong>
+                    這次... 小杜會再帶給我們怎麼樣的激情表現呢？
                 </div>
             </div>
 
@@ -575,25 +652,24 @@
             <div class="coming-soon-card">
                 <div class="cs-icon"><i class="fas fa-clipboard-list"></i></div>
                 <div class="cs-text">教育訓練時程表<br>即將公佈</div>
-                <p style="color:#aaa; font-size:0.9em;">(Coming Soon...)</p>
+                <p style="color:#aaa; font-size:0.9em; margin-top:10px;">請密切留意行政公告</p>
             </div>
         </div>
 
-        <!-- NEW: 國外員工旅遊簡介 (Coming Soon) -->
+        <!-- NEW: 國外員工旅遊簡介 -->
         <div id="abroad" class="content-section">
             <div class="coming-soon-card">
                 <div class="cs-icon"><i class="fas fa-plane-departure"></i></div>
-                <div class="cs-text">國外員工旅遊簡介<br>敬請期待</div>
-                <p style="color:#aaa; font-size:0.9em;">(Coming Soon...)</p>
+                <div class="cs-text">2026 國外員工旅遊<br>敬請期待</div>
+                <p style="color:#aaa; font-size:0.9em;">(目的地投票統計中...)</p>
             </div>
         </div>
 
-        <!-- Coming Soon 分頁 -->
+        <!-- Coming Soon Pages -->
         <div id="room" class="content-section">
             <div class="coming-soon-card">
                 <div class="cs-icon"><i class="fas fa-bed"></i></div>
-                <div class="cs-text">房型分配名單<br>即將公佈</div>
-                <p style="color:#aaa; font-size:0.9em;">(Coming Soon...)</p>
+                <div class="cs-text">房型分配名單<br>整理中</div>
             </div>
         </div>
 
@@ -601,7 +677,6 @@
             <div class="coming-soon-card">
                 <div class="cs-icon"><i class="fas fa-chair"></i></div>
                 <div class="cs-text">尾牙座位表<br>即將公佈</div>
-                <p style="color:#aaa; font-size:0.9em;">(Coming Soon...)</p>
             </div>
         </div>
 
@@ -609,17 +684,15 @@
             <div class="coming-soon-card">
                 <div class="cs-icon"><i class="fas fa-car"></i></div>
                 <div class="cs-text">車輛安排名單<br>即將公佈</div>
-                <p style="color:#aaa; font-size:0.9em;">(Coming Soon...)</p>
             </div>
         </div>
 
-        <!-- 表單調查區 (iframe) -->
+        <!-- 表單調查區 -->
         <div id="survey" class="content-section">
-            <div class="form-section">
-                <h2>🍲 晚餐湯底與肉品調查</h2>
-                <p>請大家在 12/31 前完成填寫，以利餐廳準備。</p>
+            <h2 style="text-align:center; color:#555;">🍲 晚餐調查表</h2>
+            <div class="event-card" style="padding: 10px;">
                 <div class="form-container">
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfLr3xguRZqze_waXQSWjK-oNlW2J295LJz19SCBUhNGTi8ZQ/viewform?embedded=true" width="100%" height="1500" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfLr3xguRZqze_waXQSWjK-oNlW2J295LJz19SCBUhNGTi8ZQ/viewform?embedded=true">載入中…</iframe>
                 </div>
             </div>
         </div>
@@ -627,6 +700,7 @@
     </div>
 
     <footer>
+        <p>Luzcogi Technology Inc.</p>
         Designed by 福委會 ❤️ | <span id="update-time"></span>
     </footer>
 
@@ -634,29 +708,40 @@
         function openTab(evt, tabName) {
             var i, content, tablinks;
             content = document.getElementsByClassName("content-section");
-            for (i = 0; i < content.length; i++) { content[i].className = content[i].className.replace(" active", ""); }
+            for (i = 0; i < content.length; i++) { 
+                content[i].className = content[i].className.replace(" active", ""); 
+            }
             tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(" active", ""); }
+            for (i = 0; i < tablinks.length; i++) { 
+                tablinks[i].className = tablinks[i].className.replace(" active", ""); 
+            }
             document.getElementById(tabName).className += " active";
             evt.currentTarget.className += " active";
+            
+            // 手機版點擊後，微微自動捲動到內容區 (UX 優化)
+            if(window.innerWidth < 768) {
+                window.scrollBy({ top: -50, behavior: 'smooth' });
+            }
         }
 
+        // 倒數計時
         const targetDate = new Date("Jan 22, 2026 00:00:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
             const distance = targetDate - now;
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            document.getElementById("countdown").innerHTML = distance < 0 ? "🎉 活動進行中！" : "⏳ 距離出發還有 " + days + " 天！";
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "🎉 活動進行中！";
+            } else {
+                document.getElementById("countdown").innerHTML = `⏳ 倒數 ${days} 天 ${hours} 小時`;
+            }
         }, 1000);
 
-        // 自動顯示最後更新日期 + 時間 (HH:MM)
+        // 更新時間
         const date = new Date(document.lastModified);
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = date.getDate().toString().padStart(2, '0');
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-        document.getElementById("update-time").innerText = `最後更新：${year}/${month}/${day} ${hours}:${minutes}`;
+        document.getElementById("update-time").innerText = `最後更新：${date.getFullYear()}/${(date.getMonth()+1).toString().padStart(2,'0')}/${date.getDate().toString().padStart(2,'0')} ${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')}`;
     </script>
 </body>
 </html>
