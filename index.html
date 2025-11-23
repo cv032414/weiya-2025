@@ -13,7 +13,6 @@
     
     <style>
         :root {
-            /* 品牌色系：科技深藍 + 榮耀金 + 活力橘 */
             --primary-dark: #1a2a3a;
             --primary-blue: #2c3e50;
             --accent-gold: #d4af37;
@@ -34,19 +33,19 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            padding-bottom: 80px; /* 浮動按鈕空間 */
+            padding-bottom: 80px;
         }
 
-        /* --- 1. Hero 視覺強化 --- */
+        /* --- Hero 視覺 --- */
         .hero {
             position: relative;
-            height: 70vh;
-            min-height: 500px;
+            height: 60vh; /*稍微調低高度*/
+            min-height: 400px;
             background-image: linear-gradient(rgba(26, 42, 58, 0.6), rgba(26, 42, 58, 0.8)), 
-                              url('https://images.unsplash.com/photo-1542332213-31f87348057f?q=80&w=2070&auto=format&fit=crop'); /* 示意山景圖 */
+                              url('https://images.unsplash.com/photo-1542332213-31f87348057f?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* 視差滾動效果 */
+            background-attachment: fixed;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -74,12 +73,18 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
+        /* 修正標題為單行，並使用 clamp 自動調整字體大小以免手機版太擠 */
         .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(1.6rem, 4vw, 3rem); 
             font-weight: 900;
             margin: 0 0 15px;
             text-shadow: 0 4px 10px rgba(0,0,0,0.3);
             line-height: 1.2;
+            white-space: nowrap; /* 強制不換行，如果手機太窄字體會自動變小 */
+        }
+        
+        @media (max-width: 480px) {
+             .hero h1 { white-space: normal; } /* 極小螢幕允許換行以免破版 */
         }
         
         .hero p {
@@ -90,7 +95,6 @@
             margin-bottom: 30px;
         }
 
-        /* 圓形倒數設計 */
         .countdown-container {
             display: flex;
             gap: 15px;
@@ -102,7 +106,7 @@
             border: 1px solid rgba(255,255,255,0.2);
             width: 80px;
             height: 80px;
-            border-radius: 50%; /* 圓形 */
+            border-radius: 50%;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -112,14 +116,14 @@
         .cd-number { font-size: 1.8em; font-weight: 700; color: var(--accent-gold); line-height: 1; }
         .cd-label { font-size: 0.7em; text-transform: uppercase; color: #ddd; margin-top: 2px; }
 
-        /* --- 2. 黏性導航 (Sticky Nav) --- */
+        /* --- 黏性導航 --- */
         .sticky-nav-wrapper {
             position: sticky;
             top: 0;
             z-index: 100;
             padding: 15px 10px;
             background: linear-gradient(to bottom, rgba(244,247,246,1) 80%, rgba(244,247,246,0));
-            margin-top: -40px; /* 往上拉一點蓋住 Hero */
+            margin-top: -40px;
         }
 
         .nav-scroll {
@@ -127,10 +131,10 @@
             overflow-x: auto;
             gap: 10px;
             padding: 5px;
-            scrollbar-width: none; /* Firefox hidden */
+            scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
         }
-        .nav-scroll::-webkit-scrollbar { display: none; } /* Chrome hidden */
+        .nav-scroll::-webkit-scrollbar { display: none; }
 
         .nav-btn {
             background: white;
@@ -148,8 +152,6 @@
             align-items: center;
             gap: 6px;
         }
-        .nav-btn i { font-size: 0.9em; }
-
         .nav-btn.active {
             background: var(--primary-blue);
             color: white;
@@ -158,7 +160,7 @@
             transform: translateY(-2px);
         }
 
-        /* --- 3. 主要內容與時間軸 (Timeline) --- */
+        /* --- 內容與時間軸 --- */
         .main-container {
             max-width: 900px;
             margin: 0 auto;
@@ -169,30 +171,24 @@
         .tab-content.active { display: block; }
         @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
 
-        /* 時間軸樣式 */
         .timeline-wrapper {
             position: relative;
-            padding-left: 30px; /* 留給左邊線條的空間 */
+            padding-left: 30px;
             margin-top: 20px;
         }
-        
-        /* 貫穿線 */
         .timeline-wrapper::before {
             content: '';
             position: absolute;
-            top: 10px;
-            bottom: 0;
-            left: 9px; /* 線的位置 */
+            top: 10px; bottom: 0; left: 9px;
             width: 2px;
             background: var(--line-color);
             border-radius: 2px;
         }
 
-        /* 卡片樣式 */
         .card {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 0; /* Reset */
+            padding: 0;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             border: 1px solid rgba(0,0,0,0.02);
@@ -202,10 +198,9 @@
         }
         .card:hover { transform: translateY(-3px); }
 
-        /* 時間軸上的點 */
         .timeline-dot {
             position: absolute;
-            left: -30px; /* 相對卡片移動到線條上 */
+            left: -30px;
             top: 25px;
             width: 20px;
             height: 20px;
@@ -214,25 +209,22 @@
             border: 4px solid var(--primary-blue);
             z-index: 2;
         }
-        /* 不同時段顏色 */
         .t-morning .timeline-dot { border-color: #f1c40f; }
         .t-afternoon .timeline-dot { border-color: #e67e22; }
         .t-evening .timeline-dot { border-color: #c0392b; }
 
-        /* 卡片內部佈局 (Grid for Desktop) */
         .card-inner {
             display: flex;
             flex-direction: column;
         }
-
         @media (min-width: 768px) {
             .card-inner {
                 flex-direction: row;
-                align-items: stretch;
+                align-items: stretch; /* 讓兩邊等高 */
             }
         }
 
-        /* 卡片左側：時間與縮圖 */
+        /* 左側時間欄位 */
         .card-side {
             padding: 20px;
             display: flex;
@@ -242,10 +234,13 @@
             background: #fcfcfc;
             border-bottom: 1px solid #eee;
         }
+        
+        /* 修正：電腦版時間置頂 */
         @media (min-width: 768px) {
             .card-side {
                 flex-direction: column;
-                justify-content: center;
+                justify-content: flex-start; /* 改為靠上對齊 */
+                padding-top: 30px; /* 增加上方留白 */
                 width: 160px;
                 flex-shrink: 0;
                 border-bottom: none;
@@ -261,7 +256,6 @@
             color: var(--primary-blue);
         }
         
-        /* 手機版縮圖 (小圓圖) */
         .card-thumb-mobile {
             width: 50px;
             height: 50px;
@@ -270,33 +264,14 @@
             display: block;
         }
         @media (min-width: 768px) {
-            .card-thumb-mobile { display: none; } /* 電腦版隱藏小圖，因為右側可能有大圖 */
+            .card-thumb-mobile { display: none; }
         }
 
-        /* 卡片主要內容 */
-        .card-body {
-            padding: 25px;
-            flex-grow: 1;
-        }
-
-        .card-title {
-            margin: 0 0 10px 0;
-            font-size: 1.3em;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .card-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 15px;
-            font-size: 0.9em;
-            color: var(--text-light);
-        }
+        .card-body { padding: 25px; flex-grow: 1; }
+        .card-title { margin: 0 0 10px 0; font-size: 1.3em; font-weight: 700; color: var(--text-main); }
+        .card-meta { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 15px; font-size: 0.9em; color: var(--text-light); }
         .meta-item { display: flex; align-items: center; gap: 6px; }
         
-        /* 按鈕樣式優化 */
         .btn-pill {
             display: inline-flex;
             align-items: center;
@@ -322,15 +297,17 @@
             color: #555;
             margin-top: 15px;
             border-left: 3px solid var(--line-color);
+            line-height: 1.6;
         }
 
-        /* 媒體與燈箱 */
         .media-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 10px;
             margin-top: 15px;
         }
+        
+        /* 修正圖片樣式：預設為小縮圖，但如果是全寬圖 (full-width) 則覆寫 */
         .media-item {
             width: 100%;
             height: 120px;
@@ -341,7 +318,17 @@
         }
         .media-item:hover { opacity: 0.8; }
         
-        /* 大圖展示區 (Slider) */
+        /* 新增：完整顯示圖片的樣式 */
+        .media-full {
+            width: 100%;
+            height: auto; /* 高度自動，不裁切 */
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: block;
+        }
+
         .slider-box {
             display: flex;
             overflow-x: auto;
@@ -356,7 +343,35 @@
             cursor: zoom-in;
         }
 
-        /* 鎖定區塊 (Coming Soon) */
+        /* 影片說明框 */
+        .video-intro {
+            background-color: #eaf6ff;
+            color: #2c3e50;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px; /* 影片上方距離 */
+            margin-top: 20px;
+            font-size: 0.95em;
+            border-left: 4px solid #3498db;
+        }
+        
+        .xiaodu-intro {
+            background: linear-gradient(135deg, #2c3e50, #000000);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        .xiaodu-title {
+            color: #f1c40f;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            display: block;
+        }
+
         .locked-section {
             text-align: center;
             padding: 50px 20px;
@@ -370,7 +385,6 @@
         .locked-icon { font-size: 3em; margin-bottom: 15px; color: #dcdcdc; }
         .locked-title { font-size: 1.2em; font-weight: 700; color: #95a5a6; margin-bottom: 5px; }
         
-        /* 右下角浮動按鈕 */
         .fab {
             position: fixed;
             bottom: 20px;
@@ -397,7 +411,6 @@
             100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0); }
         }
 
-        /* 燈箱 Modal */
         .lightbox {
             display: none;
             position: fixed;
@@ -431,12 +444,12 @@
     <!-- Hero Section -->
     <div class="hero">
         <div class="hero-badge">Luzcogi Technology</div>
-        <h1>2025 年度尾牙<br>暨教育訓練</h1>
+        <!-- 修正1: 標題改為一行 -->
+        <h1>2025 年度尾牙暨教育訓練</h1>
         <p>專業精進 · 團隊凝聚 · 榮耀時刻</p>
         
         <!-- 圓形倒數計時 -->
         <div class="countdown-container" id="countdown">
-            <!-- JS 會填入內容 -->
             <div class="countdown-item"><span class="cd-number">--</span><span class="cd-label">Days</span></div>
             <div class="countdown-item"><span class="cd-number">--</span><span class="cd-label">Hrs</span></div>
             <div class="countdown-item"><span class="cd-number">--</span><span class="cd-label">Mins</span></div>
@@ -466,7 +479,6 @@
                     <div class="card-inner">
                         <div class="card-side">
                             <span class="card-time">11:00</span>
-                            <!-- 手機版顯示小縮圖 -->
                             <img src="https://fakeimg.pl/100x100/?text=Food" class="card-thumb-mobile" alt="Lunch">
                         </div>
                         <div class="card-body">
@@ -498,9 +510,8 @@
                                 <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="btn-pill primary"><i class="fas fa-location-arrow"></i> 導航</a>
                             </div>
                             <div class="slider-box">
-                                <!-- 點擊可放大 -->
+                                <!-- 修正3: 移除了原本破圖的 placeholder -->
                                 <img src="meeting1.jpg" onclick="openLightbox(this.src)" alt="Meeting">
-                                <img src="https://fakeimg.pl/300x200/?text=Venue" onclick="openLightbox(this.src)" alt="Venue">
                             </div>
                         </div>
                     </div>
@@ -542,12 +553,12 @@
                         <div class="card-body">
                             <h3 class="card-title">自由活動 / 露天風呂</h3>
                             <div class="card-desc">
-                                ♨️ <strong>泰安溫泉 - 48℃ 極致玉泉</strong><br>
+                                <!-- 修正6: 移除了中間的減號 -->
+                                ♨️ <strong>泰安溫泉 48℃ 極致玉泉</strong><br>
                                 <small>🔴 請著泳衣、泳帽進場。禁止使用泳圈。</small>
                             </div>
-                            <div class="media-grid">
-                                <img src="tangyue.jpg" class="media-item" onclick="openLightbox(this.src)" alt="溫泉">
-                            </div>
+                            <!-- 修正6: 使用 media-full 讓圖片不裁切 -->
+                            <img src="tangyue.jpg" class="media-full" onclick="openLightbox(this.src)" alt="溫泉">
                         </div>
                     </div>
                 </div>
@@ -637,6 +648,7 @@
                     <div class="timeline-dot"></div>
                     <div class="card-inner">
                         <div class="card-side">
+                            <!-- 修正4: 因為CSS的 card-side 已經改成 flex-start，這裡的時間會自動靠上 -->
                             <span class="card-time">13:00</span>
                             <i class="fas fa-crosshairs" style="font-size:24px; color:#34495e;"></i>
                         </div>
@@ -656,16 +668,30 @@
                                 <img src="gun.jpg" style="width:100px; border-radius:5px; cursor:pointer;" onclick="openLightbox(this.src)" alt="Gun">
                             </div>
 
-                            <!-- 影片區塊 -->
-                            <div style="margin-top:15px;">
+                            <!-- 修正5: 補回影片說明文字區塊 -->
+                            <div class="video-intro">
+                                <strong>🎬 歡樂回顧：</strong><br>
+                                大家還記得之前打鐳戰時，笑聲不斷的畫面嗎？<br>
+                                這次的水彈一樣刺激好玩，不用害怕也不用擔心，<br>
+                                讓我們一起安全地釋放壓力、盡情享受吧！💪
+                            </div>
+
+                            <div style="margin-top:10px;">
                                 <video controls playsinline style="width:100%; border-radius:10px; background:black;">
                                     <source src="laser_war.mp4" type="video/mp4">
                                 </video>
-                                <p style="font-size:0.85em; color:#7f8c8d; margin-top:5px;">🎬 上次鐳戰回顧</p>
                             </div>
 
-                            <div style="margin-top:15px; background:#2c3e50; color:white; padding:15px; border-radius:10px;">
-                                <strong style="color:#f1c40f;">🔥 特別獻映：小杜歸來</strong>
+                            <!-- 修正5: 補回小杜影片說明區塊 -->
+                            <div class="xiaodu-intro">
+                                <span class="xiaodu-title">🔥 傳說，重現戰場！</span>
+                                沉睡已久的男人回來了！？<br>
+                                還記得曾經這個男人在戰場中大殺四方、橫掃千軍嗎？<br>
+                                這次... 小杜會再帶給我們怎麼樣的激情表現呢？<br>
+                                <strong>讓我們拭目以待！</strong>
+                            </div>
+
+                            <div style="margin-top:10px;">
                                 <video controls playsinline style="width:100%; border-radius:8px; margin-top:10px;">
                                     <source src="xiaodu.mp4" type="video/mp4">
                                 </video>
@@ -677,32 +703,28 @@
             </div>
         </div>
 
-        <!-- 其他資訊 (Info) - 包含 Locked Sections -->
+        <!-- 其他資訊 (Info) -->
         <div id="info" class="tab-content">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
                 
-                <!-- 鎖定：教育訓練 -->
                 <div class="locked-section">
                     <i class="fas fa-lock locked-icon"></i>
                     <div class="locked-title">教育訓練時程表</div>
                     <p>Coming Soon</p>
                 </div>
 
-                <!-- 鎖定：國外旅遊 -->
                 <div class="locked-section">
                     <i class="fas fa-plane-departure locked-icon"></i>
                     <div class="locked-title">國外員工旅遊簡介</div>
                     <p>敬請期待</p>
                 </div>
 
-                <!-- 鎖定：房型 -->
                 <div class="locked-section">
                     <i class="fas fa-bed locked-icon"></i>
                     <div class="locked-title">房型分配名單</div>
                     <p>整理中</p>
                 </div>
 
-                 <!-- 鎖定：座位 -->
                  <div class="locked-section">
                     <i class="fas fa-chair locked-icon"></i>
                     <div class="locked-title">尾牙座位表</div>
@@ -728,40 +750,29 @@
 
     </div>
 
+    <!-- 修正2: Footer 恢復顯示更新時間 -->
     <footer>
-        Designed by 福委會 ❤️ | 2025 Year-End Party
+        Designed by 福委會 ❤️ | <span id="update-time"></span>
     </footer>
 
     <script>
-        // Tab Switching Logic
         function switchTab(evt, tabName) {
             var i, tabcontent, navbtns;
-            
-            // 隱藏所有內容
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].className = tabcontent[i].className.replace(" active", "");
             }
-            
-            // 移除按鈕 active 狀態
             navbtns = document.getElementsByClassName("nav-btn");
             for (i = 0; i < navbtns.length; i++) {
                 navbtns[i].className = navbtns[i].className.replace(" active", "");
             }
-            
-            // 顯示目標與啟用按鈕
             document.getElementById(tabName).className += " active";
             evt.currentTarget.className += " active";
-
-            // 點擊後捲動到內容頂部 (UX優化)
             window.scrollTo({ top: document.querySelector('.hero').offsetHeight - 60, behavior: 'smooth' });
         }
 
-        // Lightbox Logic
         function openLightbox(src) {
-            // 避免點到佔位圖時顯示怪怪的，實際使用時可移除檢查
-            if(src.includes('fakeimg') || src.includes('placeholder')) return; 
-            
+            if(src.includes('fakeimg')) return; 
             const lightbox = document.getElementById('lightbox');
             const img = document.getElementById('lightbox-img');
             img.src = src;
@@ -772,7 +783,7 @@
             document.getElementById('lightbox').className = "lightbox";
         }
 
-        // Countdown Logic
+        // 倒數計時
         const targetDate = new Date("Jan 22, 2026 00:00:00").getTime();
         const cdContainer = document.getElementById('countdown');
         
@@ -790,12 +801,14 @@
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
-            // Update HTML
             cdContainer.children[0].querySelector('.cd-number').innerText = days;
             cdContainer.children[1].querySelector('.cd-number').innerText = hours;
             cdContainer.children[2].querySelector('.cd-number').innerText = minutes;
-
         }, 1000);
+
+        // 修正2: 自動更新時間的 Script
+        const date = new Date(document.lastModified);
+        document.getElementById("update-time").innerText = `最後更新：${date.getFullYear()}/${(date.getMonth()+1).toString().padStart(2,'0')}/${date.getDate().toString().padStart(2,'0')} ${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')}`;
     </script>
 </body>
 </html>
