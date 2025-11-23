@@ -39,13 +39,14 @@
         /* --- Hero 視覺 --- */
         .hero {
             position: relative;
-            height: 60vh; /*稍微調低高度*/
-            min-height: 400px;
-            background-image: linear-gradient(rgba(26, 42, 58, 0.6), rgba(26, 42, 58, 0.8)), 
+            height: 60vh;
+            min-height: 450px;
+            /* 修正3: 背景圖設定優化 */
+            background-image: linear-gradient(rgba(26, 42, 58, 0.5), rgba(26, 42, 58, 0.7)), 
                               url('https://images.unsplash.com/photo-1542332213-31f87348057f?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background-position: center center; /* 確保居中 */
+            background-attachment: fixed; /* 電腦版維持視差效果 */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -56,6 +57,16 @@
             border-bottom-left-radius: 40px;
             border-bottom-right-radius: 40px;
             overflow: hidden;
+        }
+
+        /* 修正3: 手機版背景圖優化，取消 fixed 避免切圖嚴重 */
+        @media (max-width: 768px) {
+            .hero {
+                background-attachment: scroll; 
+                height: auto;
+                padding-top: 80px;
+                padding-bottom: 60px;
+            }
         }
 
         .hero-badge {
@@ -73,18 +84,17 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        /* 修正標題為單行，並使用 clamp 自動調整字體大小以免手機版太擠 */
         .hero h1 {
             font-size: clamp(1.6rem, 4vw, 3rem); 
             font-weight: 900;
             margin: 0 0 15px;
             text-shadow: 0 4px 10px rgba(0,0,0,0.3);
             line-height: 1.2;
-            white-space: nowrap; /* 強制不換行，如果手機太窄字體會自動變小 */
+            white-space: nowrap;
         }
         
         @media (max-width: 480px) {
-             .hero h1 { white-space: normal; } /* 極小螢幕允許換行以免破版 */
+             .hero h1 { white-space: normal; }
         }
         
         .hero p {
@@ -92,13 +102,24 @@
             font-weight: 300;
             opacity: 0.9;
             letter-spacing: 1px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+        }
+
+        /* 修正2: 倒數計時說明文字 */
+        .countdown-label-text {
+            color: #ddd;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            background: rgba(0,0,0,0.3);
+            padding: 2px 10px;
+            border-radius: 10px;
         }
 
         .countdown-container {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
         }
         .countdown-item {
             background: rgba(0, 0, 0, 0.5);
@@ -220,7 +241,7 @@
         @media (min-width: 768px) {
             .card-inner {
                 flex-direction: row;
-                align-items: stretch; /* 讓兩邊等高 */
+                align-items: stretch;
             }
         }
 
@@ -228,19 +249,19 @@
         .card-side {
             padding: 20px;
             display: flex;
-            flex-direction: row;
+            /* 修正5: 手機版改為直向排列，讓 icon 在時間下方 */
+            flex-direction: column; 
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             background: #fcfcfc;
             border-bottom: 1px solid #eee;
+            gap: 5px; /* 時間與 Icon 的間距 */
         }
         
-        /* 修正：電腦版時間置頂 */
         @media (min-width: 768px) {
             .card-side {
-                flex-direction: column;
-                justify-content: flex-start; /* 改為靠上對齊 */
-                padding-top: 30px; /* 增加上方留白 */
+                justify-content: flex-start;
+                padding-top: 30px;
                 width: 160px;
                 flex-shrink: 0;
                 border-bottom: none;
@@ -256,15 +277,10 @@
             color: var(--primary-blue);
         }
         
-        .card-thumb-mobile {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            object-fit: cover;
-            display: block;
-        }
-        @media (min-width: 768px) {
-            .card-thumb-mobile { display: none; }
+        /* 修正5: 時間下方的通用 Icon 樣式 */
+        .time-icon {
+            font-size: 20px; 
+            color: #95a5a6; /* 預設顏色 */
         }
 
         .card-body { padding: 25px; flex-grow: 1; }
@@ -307,7 +323,6 @@
             margin-top: 15px;
         }
         
-        /* 修正圖片樣式：預設為小縮圖，但如果是全寬圖 (full-width) 則覆寫 */
         .media-item {
             width: 100%;
             height: 120px;
@@ -318,10 +333,9 @@
         }
         .media-item:hover { opacity: 0.8; }
         
-        /* 新增：完整顯示圖片的樣式 */
         .media-full {
             width: 100%;
-            height: auto; /* 高度自動，不裁切 */
+            height: auto;
             max-height: 500px;
             object-fit: contain;
             border-radius: 10px;
@@ -343,13 +357,12 @@
             cursor: zoom-in;
         }
 
-        /* 影片說明框 */
         .video-intro {
             background-color: #eaf6ff;
             color: #2c3e50;
             padding: 15px;
             border-radius: 12px;
-            margin-bottom: 10px; /* 影片上方距離 */
+            margin-bottom: 10px;
             margin-top: 20px;
             font-size: 0.95em;
             border-left: 4px solid #3498db;
@@ -443,12 +456,14 @@
 
     <!-- Hero Section -->
     <div class="hero">
-        <div class="hero-badge">Luzcogi Technology</div>
-        <!-- 修正1: 標題改為一行 -->
+        <!-- 修正1: 名稱更換 -->
+        <div class="hero-badge">路斯科技 Luzcogi</div>
+        
         <h1>2025 年度尾牙暨教育訓練</h1>
         <p>專業精進 · 團隊凝聚 · 榮耀時刻</p>
         
-        <!-- 圓形倒數計時 -->
+        <!-- 修正2: 倒數計時說明 -->
+        <div class="countdown-label-text">⏳ 距離出發倒數</div>
         <div class="countdown-container" id="countdown">
             <div class="countdown-item"><span class="cd-number">--</span><span class="cd-label">Days</span></div>
             <div class="countdown-item"><span class="cd-number">--</span><span class="cd-label">Hrs</span></div>
@@ -479,7 +494,8 @@
                     <div class="card-inner">
                         <div class="card-side">
                             <span class="card-time">11:00</span>
-                            <img src="https://fakeimg.pl/100x100/?text=Food" class="card-thumb-mobile" alt="Lunch">
+                            <!-- 修正5: 補上 Icon (原本無) -->
+                            <i class="fas fa-utensils time-icon" style="color:#d35400;"></i>
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">中餐：夢松園客家風味</h3>
@@ -501,16 +517,17 @@
                     <div class="card-inner">
                         <div class="card-side">
                             <span class="card-time">13:00</span>
-                            <img src="meeting1.jpg" class="card-thumb-mobile" alt="Meeting">
+                            <!-- 修正5: 補上 Icon (原本無) -->
+                            <i class="fas fa-chalkboard-teacher time-icon" style="color:#2c3e50;"></i>
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title">湯悅溫泉會館 (教育訓練)</h3>
+                            <!-- 修正4: 改名為 Part 1 -->
+                            <h3 class="card-title">教育訓練 Part 1</h3>
                             <div class="card-meta">
                                 <span class="meta-item"><i class="fas fa-building"></i> 湯悅會議室</span>
                                 <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="btn-pill primary"><i class="fas fa-location-arrow"></i> 導航</a>
                             </div>
                             <div class="slider-box">
-                                <!-- 修正3: 移除了原本破圖的 placeholder -->
                                 <img src="meeting1.jpg" onclick="openLightbox(this.src)" alt="Meeting">
                             </div>
                         </div>
@@ -523,7 +540,8 @@
                     <div class="card-inner">
                         <div class="card-side">
                             <span class="card-time">18:00</span>
-                            <i class="fas fa-utensils" style="font-size:24px; color:#e67e22;"></i>
+                            <!-- 修正5: 確保有 Icon -->
+                            <i class="fas fa-utensils time-icon" style="color:#e67e22;"></i>
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">晚餐：個人鍋物</h3>
@@ -548,16 +566,15 @@
                     <div class="card-inner">
                         <div class="card-side">
                             <span class="card-time">19:00</span>
-                            <i class="fas fa-hot-tub" style="font-size:24px; color:#3498db;"></i>
+                            <!-- 修正5: 確保有 Icon -->
+                            <i class="fas fa-hot-tub time-icon" style="color:#3498db;"></i>
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">自由活動 / 露天風呂</h3>
                             <div class="card-desc">
-                                <!-- 修正6: 移除了中間的減號 -->
                                 ♨️ <strong>泰安溫泉 48℃ 極致玉泉</strong><br>
                                 <small>🔴 請著泳衣、泳帽進場。禁止使用泳圈。</small>
                             </div>
-                            <!-- 修正6: 使用 media-full 讓圖片不裁切 -->
                             <img src="tangyue.jpg" class="media-full" onclick="openLightbox(this.src)" alt="溫泉">
                         </div>
                     </div>
@@ -575,6 +592,8 @@
                     <div class="card-inner">
                         <div class="card-side">
                             <span class="card-time">08:30</span>
+                            <!-- 修正5: 補上 Icon -->
+                            <i class="fas fa-chalkboard-teacher time-icon" style="color:#2c3e50;"></i>
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">教育訓練 Part 2</h3>
@@ -588,7 +607,8 @@
                     <div class="card-inner">
                         <div class="card-side">
                             <span class="card-time">13:30</span>
-                            <i class="fas fa-mountain" style="font-size:24px; color:#27ae60;"></i>
+                            <!-- 修正5: 確保有 Icon -->
+                            <i class="fas fa-mountain time-icon" style="color:#27ae60;"></i>
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">極限山訓挑戰</h3>
@@ -612,7 +632,8 @@
                     <div class="card-inner">
                         <div class="card-side">
                             <span class="card-time">18:00</span>
-                            <i class="fas fa-wine-glass-alt" style="font-size:24px; color:#e74c3c;"></i>
+                            <!-- 修正5: 確保有 Icon -->
+                            <i class="fas fa-wine-glass-alt time-icon" style="color:#e74c3c;"></i>
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">🏆 年度尾牙晚宴</h3>
@@ -633,7 +654,11 @@
                 <div class="card">
                     <div class="timeline-dot"></div>
                     <div class="card-inner">
-                        <div class="card-side"><span class="card-time">11:30</span></div>
+                        <div class="card-side">
+                            <span class="card-time">11:30</span>
+                            <!-- 修正5: 補上 Icon -->
+                            <i class="fas fa-utensils time-icon" style="color:#d35400;"></i>
+                        </div>
                         <div class="card-body">
                             <h3 class="card-title">中餐：棗莊古藝庭園膳坊</h3>
                             <div class="card-meta">
@@ -648,9 +673,9 @@
                     <div class="timeline-dot"></div>
                     <div class="card-inner">
                         <div class="card-side">
-                            <!-- 修正4: 因為CSS的 card-side 已經改成 flex-start，這裡的時間會自動靠上 -->
                             <span class="card-time">13:00</span>
-                            <i class="fas fa-crosshairs" style="font-size:24px; color:#34495e;"></i>
+                            <!-- 修正5: 確保有 Icon -->
+                            <i class="fas fa-crosshairs time-icon" style="color:#34495e;"></i>
                         </div>
                         <div class="card-body">
                             <h3 class="card-title">JEA 橋頭堡打水彈</h3>
@@ -668,7 +693,6 @@
                                 <img src="gun.jpg" style="width:100px; border-radius:5px; cursor:pointer;" onclick="openLightbox(this.src)" alt="Gun">
                             </div>
 
-                            <!-- 修正5: 補回影片說明文字區塊 -->
                             <div class="video-intro">
                                 <strong>🎬 歡樂回顧：</strong><br>
                                 大家還記得之前打鐳戰時，笑聲不斷的畫面嗎？<br>
@@ -682,7 +706,6 @@
                                 </video>
                             </div>
 
-                            <!-- 修正5: 補回小杜影片說明區塊 -->
                             <div class="xiaodu-intro">
                                 <span class="xiaodu-title">🔥 傳說，重現戰場！</span>
                                 沉睡已久的男人回來了！？<br>
@@ -739,76 +762,4 @@
                 <div class="card-body">
                     <h3 class="card-title" style="text-align:center;">🍲 晚餐湯底與肉品調查</h3>
                     <div style="position: relative; padding-top: 120%; overflow: hidden; border-radius: 10px;">
-                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfLr3xguRZqze_waXQSWjK-oNlW2J295LJz19SCBUhNGTi8ZQ/viewform?embedded=true" 
-                            style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;">
-                            載入中…
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- 修正2: Footer 恢復顯示更新時間 -->
-    <footer>
-        Designed by 福委會 ❤️ | <span id="update-time"></span>
-    </footer>
-
-    <script>
-        function switchTab(evt, tabName) {
-            var i, tabcontent, navbtns;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].className = tabcontent[i].className.replace(" active", "");
-            }
-            navbtns = document.getElementsByClassName("nav-btn");
-            for (i = 0; i < navbtns.length; i++) {
-                navbtns[i].className = navbtns[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).className += " active";
-            evt.currentTarget.className += " active";
-            window.scrollTo({ top: document.querySelector('.hero').offsetHeight - 60, behavior: 'smooth' });
-        }
-
-        function openLightbox(src) {
-            if(src.includes('fakeimg')) return; 
-            const lightbox = document.getElementById('lightbox');
-            const img = document.getElementById('lightbox-img');
-            img.src = src;
-            lightbox.className += " active";
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').className = "lightbox";
-        }
-
-        // 倒數計時
-        const targetDate = new Date("Jan 22, 2026 00:00:00").getTime();
-        const cdContainer = document.getElementById('countdown');
-        
-        const timer = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            if (distance < 0) {
-                clearInterval(timer);
-                cdContainer.innerHTML = "<div style='font-size:1.5em; font-weight:bold;'>🎉 活動進行中！</div>";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-            cdContainer.children[0].querySelector('.cd-number').innerText = days;
-            cdContainer.children[1].querySelector('.cd-number').innerText = hours;
-            cdContainer.children[2].querySelector('.cd-number').innerText = minutes;
-        }, 1000);
-
-        // 修正2: 自動更新時間的 Script
-        const date = new Date(document.lastModified);
-        document.getElementById("update-time").innerText = `最後更新：${date.getFullYear()}/${(date.getMonth()+1).toString().padStart(2,'0')}/${date.getDate().toString().padStart(2,'0')} ${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')}`;
-    </script>
-</body>
-</html>
+                        <iframe src="https://docs.google.com/forms/d
