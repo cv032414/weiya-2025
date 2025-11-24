@@ -115,13 +115,14 @@
             z-index: 5;
         }
 
-        /* --- 分頁按鈕 --- */
+        /* --- 分頁按鈕 (修正置中問題) --- */
         .tabs-wrapper {
             overflow-x: auto;
             white-space: nowrap;
             padding-bottom: 5px;
             margin-bottom: 20px;
             -webkit-overflow-scrolling: touch;
+            text-align: center; /* 修正2：讓按鈕置中 */
         }
         .tabs {
             display: inline-flex;
@@ -191,12 +192,12 @@
         }
         .location-link i { margin-right: 5px; }
 
-        /* 修正：微型天氣樣式 (高度改為 auto) */
+        /* 天氣樣式 */
         .mini-weather {
             display: block;
             width: 100%;
-            height: auto; /* 解除高度限制，讓它自然撐開 */
-            min-height: 100px; /* 設定最小高度避免塌陷 */
+            height: auto; 
+            min-height: 100px;
             border-radius: 8px;
             overflow: hidden;
             margin-top: 5px;
@@ -204,6 +205,7 @@
             border: 1px solid #eee;
         }
 
+        /* 描述框 (修正1：移除左側粗邊框) */
         .desc-box {
             background-color: #f8f9fa;
             border: 1px dashed #cbd5e0;
@@ -267,10 +269,12 @@
             .video-header { max-width: 400px; margin: 5px auto 0; }
         }
 
+        /* 修正1：移除左側粗邊框 */
         .video-caption-highlight {
             background-color: #e3f2fd; color: #0060a9;
             padding: 12px; border-radius: 8px; margin-top: 20px;
-            font-weight: bold; border-left: 4px solid var(--primary-color);
+            font-weight: bold;
+            /* border-left: 4px solid var(--primary-color);  <-- 已移除 */
         }
 
         .xiaodu-caption {
@@ -350,7 +354,7 @@
 
     <div class="container">
         
-        <!-- 滑動選單 -->
+        <!-- 滑動選單 (已修正：按鈕置中) -->
         <div class="tabs-wrapper">
             <div class="tabs">
                 <button class="tab-btn active" onclick="openTab(event, 'day1')">Day 1 (1/22)</button>
@@ -364,6 +368,7 @@
         <div id="day1" class="content-section active">
             <div class="timeline">
                 
+                <!-- 午餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-utensils"></i></div>
                     <div class="timeline-content">
@@ -374,7 +379,7 @@
                                 <i class="fas fa-map-marker-alt"></i> 夢松園庭園餐廳 (導航)
                             </a>
                         </div>
-                        <!-- 苗栗公館天氣 -->
+                        <!-- 苗栗公館天氣 (確保使用 HTTPS 開啟網頁才會顯示) -->
                         <div class="mini-weather">
                             <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d50120d83/gongguan-township/" data-label_1="公館鄉" data-label_2="天氣預報" data-theme="pure" >公館鄉 天氣預報</a>
                         </div>
@@ -385,6 +390,7 @@
                     </div>
                 </div>
 
+                <!-- 教育訓練 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-chalkboard-teacher"></i></div>
                     <div class="timeline-content">
@@ -405,6 +411,7 @@
                     </div>
                 </div>
 
+                <!-- 晚餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-concierge-bell"></i></div>
                     <div class="timeline-content">
@@ -421,6 +428,7 @@
                     </div>
                 </div>
 
+                <!-- 泡湯 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-hot-tub"></i></div>
                     <div class="timeline-content">
@@ -446,6 +454,7 @@
         <div id="day2" class="content-section">
             <div class="timeline">
                 
+                <!-- 教育訓練 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-laptop-code"></i></div>
                     <div class="timeline-content">
@@ -458,6 +467,7 @@
                     </div>
                 </div>
 
+                <!-- 午餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-box-open"></i></div>
                     <div class="timeline-content">
@@ -467,6 +477,7 @@
                     </div>
                 </div>
 
+                <!-- 山訓 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-mountain"></i></div>
                     <div class="timeline-content">
@@ -496,6 +507,7 @@
                     </div>
                 </div>
 
+                <!-- 尾牙 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-wine-glass-alt"></i></div>
                     <div class="timeline-content">
@@ -519,6 +531,7 @@
         <div id="day3" class="content-section">
             <div class="timeline">
                 
+                <!-- 退房 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-suitcase"></i></div>
                     <div class="timeline-content">
@@ -528,6 +541,7 @@
                     </div>
                 </div>
 
+                <!-- 棗莊午餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-utensils"></i></div>
                     <div class="timeline-content">
@@ -549,6 +563,7 @@
                     </div>
                 </div>
 
+                <!-- JEA 水彈 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-crosshairs"></i></div>
                     <div class="timeline-content">
@@ -576,7 +591,7 @@
                             </div>
                         </div>
 
-                        <!-- 影片區塊 1: 文字在上方 -->
+                        <!-- 影片區塊 1: 修正1：移除左邊粗藍線 -->
                         <div class="video-caption-highlight">
                             <strong>🎬 歡樂回顧：</strong><br>
                             大家還記得之前打鐳戰時，笑聲不斷的畫面嗎？<br>
@@ -588,7 +603,7 @@
                             <source src="laser_war.mp4" type="video/mp4">
                         </video>
                         
-                        <!-- 影片區塊 2: 文字在上方 -->
+                        <!-- 影片區塊 2 -->
                         <div class="xiaodu-caption">
                             <div class="xiaodu-title">🔥 傳說，重現戰場！</div>
                             沉睡已久的男人回來了！？<br>
@@ -603,6 +618,7 @@
                     </div>
                 </div>
 
+                <!-- 歸賦 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-home"></i></div>
                     <div class="timeline-content">
@@ -615,7 +631,7 @@
             </div>
         </div>
 
-        <!-- 其他資訊分頁 (Grid Layout) -->
+        <!-- 其他資訊分頁 -->
         <div id="other" class="content-section">
             <div class="other-info-grid">
                 <div class="mystery-card">
@@ -661,7 +677,7 @@
         Designed by 福委會 ❤️ | <span id="update-time"></span>
     </footer>
 
-    <!-- Weather Script: Placed separate to ensure loading -->
+    <!-- 天氣腳本 -->
     <script>
         !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
     </script>
@@ -701,7 +717,7 @@
         const minutes = date.getMinutes().toString().padStart(2, '0');
         document.getElementById("update-time").innerText = `最後更新：${year}/${month}/${day} ${hours}:${minutes}`;
 
-        // Lightbox Logic
+        // Lightbox
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const images = document.querySelectorAll('.card-img, .equipment-img, .slider-item img');
