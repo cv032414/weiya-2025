@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #FF6B6B;
-            --secondary-color: #4ECDC4;
-            --bg-color: #f0f2f5;
+            /* --- 配合路斯科技 LOGO 的藍色系 --- */
+            --primary-color: #0060a9; /* LOGO 深藍 */
+            --secondary-color: #00a0e9; /* 亮藍/水藍 */
+            --accent-color: #ffbd2e; /* 點綴色(對比黃) */
+            --bg-color: #f4f7fa;
             --card-bg: #ffffff;
             --text-color: #2c3e50;
-            --timeline-color: #ddd;
+            --timeline-color: #cbd5e0;
         }
 
         body {
@@ -22,33 +24,40 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            font-size: 16px; /* 確保手機閱讀舒適 */
+            font-size: 16px;
         }
 
-        /* --- Hero 區域 --- */
+        /* --- Hero 區域 (封面配置) --- */
         .hero {
-            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 40px 15px 60px;
+            padding: 40px 15px 70px;
             text-align: center;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
             position: relative;
-            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 96, 169, 0.3);
         }
 
-        .company-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 6px 20px;
-            border-radius: 30px;
-            font-size: 0.9em;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
+        /* LOGO 懸浮白卡 */
+        .logo-glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 15px 25px;
+            margin: 0 auto 25px auto;
+            max-width: 90%;
+            width: fit-content;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            display: block;
+            margin: 0 auto;
         }
 
         .hero h1 { 
@@ -57,10 +66,11 @@
             letter-spacing: 1px;
             white-space: nowrap; 
             font-size: 5.5vw; 
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
         @media (min-width: 768px) {
             .hero h1 { font-size: 2.5em; }
+            .logo-img { height: 75px; }
         }
         
         .hero p { 
@@ -70,7 +80,7 @@
             font-weight: 500;
         }
 
-        /* --- 優化後的倒數計時器 (方塊風格) --- */
+        /* 倒數計時器 */
         .countdown-container {
             display: flex;
             justify-content: center;
@@ -78,9 +88,9 @@
             margin-top: 20px;
         }
         .time-box {
-            background: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.2);
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.4);
+            border: 1px solid rgba(255,255,255,0.3);
             border-radius: 10px;
             padding: 8px 12px;
             min-width: 60px;
@@ -99,26 +109,12 @@
             text-transform: uppercase;
         }
 
-        /* --- 天氣 Widget 容器 --- */
-        .weather-widget-container {
+        .container {
             max-width: 800px;
-            margin: -30px auto 20px; /* 往上重疊 Hero */
+            margin: -40px auto 40px; /* 往上重疊 Hero */
             padding: 0 20px;
             position: relative;
             z-index: 5;
-        }
-        .weather-card {
-            background: white;
-            border-radius: 15px;
-            padding: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto 40px;
-            padding: 20px;
         }
 
         /* --- 分頁按鈕 --- */
@@ -137,7 +133,7 @@
         .tab-btn {
             background: white;
             border: 1px solid #eee;
-            padding: 12px 20px; 
+            padding: 12px 25px; 
             font-size: 1em;
             font-weight: bold;
             color: #888;
@@ -151,94 +147,69 @@
             background-color: var(--primary-color);
             color: white;
             border-color: var(--primary-color);
-            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 96, 169, 0.3);
         }
 
-        /* --- 垂直時間軸樣式 (Vertical Timeline) --- */
+        /* --- 垂直時間軸樣式 --- */
         .content-section { display: none; animation: fadeIn 0.5s ease; }
         .content-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .timeline {
-            position: relative;
-            padding-left: 20px; /* 左側留空間給線 */
-        }
-        /* 中間的線 */
+        .timeline { position: relative; padding-left: 20px; }
         .timeline::before {
             content: '';
-            position: absolute;
-            left: 20px;
-            top: 10px;
-            bottom: 10px;
-            width: 2px;
-            background: var(--timeline-color);
+            position: absolute; left: 20px; top: 10px; bottom: 10px;
+            width: 2px; background: var(--timeline-color);
         }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 30px;
-            padding-left: 25px; /* 內容往右推 */
-        }
-
-        /* 時間節點圖示 (Icon) */
+        .timeline-item { position: relative; margin-bottom: 30px; padding-left: 25px; }
         .timeline-icon {
-            position: absolute;
-            left: -20px; /* 對齊線的位置 */
-            top: 0;
-            width: 40px;
-            height: 40px;
+            position: absolute; left: -20px; top: 0;
+            width: 40px; height: 40px;
             background: white;
             border: 2px solid var(--primary-color);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-color);
-            font-size: 1.1em;
-            z-index: 2;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary-color); font-size: 1.1em;
+            z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        /* 卡片內容 */
         .timeline-content {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
+            background: white; border-radius: 16px; padding: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--primary-color); /* 強調色條 */
+            border-left: 4px solid var(--primary-color);
         }
 
-        /* 時間標籤 */
         .time-tag {
-            display: inline-block;
-            background: #f0f2f5;
-            color: #555;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: bold;
-            margin-bottom: 10px;
+            display: inline-block; background: #f0f2f5; color: #555;
+            padding: 4px 10px; border-radius: 20px;
+            font-size: 0.9em; font-weight: bold; margin-bottom: 10px;
         }
-
-        .event-title {
-            margin: 0 0 8px 0;
-            font-size: 1.3em;
-            color: #333;
+        .event-title { margin: 0 0 8px 0; font-size: 1.3em; color: #333; }
+        
+        /* 地點與天氣 Flex */
+        .location-row { margin-bottom: 10px; }
+        .location-link {
+            display: inline-flex; align-items: center;
+            color: var(--primary-color); font-weight: bold; text-decoration: none;
+            font-size: 1em;
         }
+        .location-link i { margin-right: 5px; }
 
-        .location-row {
-            display: flex;
-            align-items: center;
-            color: #666;
-            font-size: 0.95em;
+        /* 嵌入式微型天氣 */
+        .mini-weather {
+            display: block;
+            width: 100%;
+            height: 80px; /* 高度縮小 */
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 5px;
             margin-bottom: 15px;
+            border: 1px solid #eee;
         }
-        .location-row i { margin-right: 5px; color: var(--primary-color); }
 
         /* 描述框 */
         .desc-box {
-            background-color: #fffbf0;
-            border: 1px dashed #e0d4b4;
+            background-color: #f8f9fa;
+            border: 1px dashed #cbd5e0;
             padding: 15px;
             border-radius: 8px;
             font-size: 0.95em;
@@ -247,182 +218,122 @@
             margin-bottom: 15px;
         }
 
-        /* --- UX 優化：大按鈕 --- */
+        /* 按鈕 */
         .btn-block {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            background-color: #4285F4; /* Google Blue */
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: background 0.2s;
-            box-sizing: border-box; /* 確保 padding 不會撐破寬度 */
+            display: flex; align-items: center; justify-content: center; width: 100%;
+            background-color: var(--primary-color); color: white;
+            padding: 12px; border-radius: 8px; text-decoration: none;
+            font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background 0.2s; box-sizing: border-box;
         }
         .btn-block:active { transform: scale(0.98); }
         .btn-block i { margin-right: 8px; }
-        
-        .btn-action { background-color: #FF4B4B; } /* 行動呼籲按鈕色 */
+        .btn-action { background-color: var(--accent-color); color: #333; } /* 換個強調色 */
 
-        /* --- 媒體樣式 --- */
-        .media-container {
-            margin-top: 15px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
+        /* --- 媒體樣式 & Lightbox --- */
+        .media-container { margin-top: 15px; border-radius: 10px; overflow: hidden; }
         .card-img {
-            width: 100%;
-            height: auto;
-            display: block;
-            background-color: #eee;
+            width: 100%; height: auto; display: block; background-color: #eee;
+            cursor: pointer; /* 提示可點擊 */
+            transition: transform 0.2s;
         }
+        .card-img:active { transform: scale(0.98); }
 
-        /* 圖片輪播 */
+        /* 輪播 */
         .slider-container {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 10px;
-            padding-bottom: 10px;
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+            gap: 10px; padding-bottom: 10px;
         }
-        .slider-item {
-            flex: 0 0 85%;
-            scroll-snap-align: center;
-        }
+        .slider-item { flex: 0 0 85%; scroll-snap-align: center; }
         .slider-item img {
-            width: 100%;
-            border-radius: 10px;
-            height: 350px;
-            object-fit: cover;
-            object-position: center; 
+            width: 100%; border-radius: 10px; height: 350px;
+            object-fit: cover; object-position: center; cursor: pointer;
         }
 
-        /* --- 裝備區塊優化 --- */
-        .equipment-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+        /* JEA 裝備區 */
+        .equipment-layout { display: flex; flex-direction: column; gap: 15px; }
+        .equipment-text { flex: 1; width: 100%; }
         .equipment-img {
-            width: 100%;
-            max-width: 280px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            object-fit: cover;
-            margin: 0 auto;
-            display: block;
+            width: 100%; max-width: 280px; height: auto;
+            border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            object-fit: cover; margin: 0 auto; display: block; cursor: pointer;
         }
         @media (min-width: 768px) {
-            .equipment-layout {
-                flex-direction: row;
-                align-items: center;
-                text-align: left;
-            }
+            .equipment-layout { flex-direction: row; align-items: center; text-align: left; }
             .equipment-img { width: 180px; margin: 0 0 0 15px; }
         }
 
-        /* --- 影片區塊優化 --- */
+        /* 影片區塊 */
         .video-header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 15px;
-            border-radius: 10px 10px 0 0;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            margin-top: 15px;
+            background-color: #333; color: #fff; padding: 10px 15px;
+            border-radius: 10px 10px 0 0; font-weight: bold;
+            display: flex; align-items: center; margin-top: 5px; /* 改為貼近上方文字 */
         }
-        .video-header i { color: #FF4B4B; margin-right: 8px; animation: pulse 2s infinite; }
-        
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        .card-video {
-            width: 100%;
-            height: auto;
-            display: block;
-            background-color: #000;
-            border-radius: 0 0 10px 10px; /* 接續 header 的圓角 */
-        }
+        .video-header i { color: var(--accent-color); margin-right: 8px; }
+        .card-video { width: 100%; max-width: 100%; height: auto; display: block; background-color: #000; border-radius: 0 0 10px 10px; }
         @media (min-width: 768px) {
             .card-video { max-width: 400px; margin: 0 auto; }
-            .video-header { max-width: 400px; margin: 15px auto 0; }
+            .video-header { max-width: 400px; margin: 5px auto 0; }
+        }
+
+        .video-caption-highlight {
+            background-color: #e3f2fd; color: #0060a9;
+            padding: 12px; border-radius: 8px; margin-top: 20px; /* 與上一個區塊分開 */
+            font-weight: bold; border-left: 4px solid var(--primary-color);
         }
 
         .xiaodu-caption {
             background: linear-gradient(to right, #2c3e50, #4ca1af);
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            color: white; padding: 15px; border-radius: 8px;
+            margin-top: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
+        .xiaodu-title { font-size: 1.2em; font-weight: bold; margin-bottom: 8px; color: #ffeb3b; text-align: center; }
 
-        /* --- Coming Soon 神秘感設計 --- */
+        /* --- 其他資訊 (Grid Layout) --- */
+        .other-info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
         .mystery-card {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            background: white; border-radius: 16px; padding: 30px;
+            text-align: center; position: relative; overflow: hidden;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
         }
-        .mystery-content {
-            filter: blur(6px); /* 模糊效果 */
-            opacity: 0.5;
-            user-select: none;
-        }
+        .mystery-content { filter: blur(6px); opacity: 0.5; user-select: none; }
         .mystery-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255,255,255,0.9);
-            padding: 15px 25px;
-            border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 2;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.9); padding: 10px 20px;
+            border-radius: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex; align-items: center; gap: 8px; z-index: 2;
+            white-space: nowrap;
         }
-        .mystery-text {
-            font-weight: bold;
-            color: #555;
-            font-size: 1.1em;
-        }
+        .mystery-text { font-weight: bold; color: var(--primary-color); font-size: 1em; }
 
         /* 表單 */
-        .form-section {
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            margin-top: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .form-container {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            padding-top: 100%;
-        }
-        .form-container iframe {
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            width: 100%; height: 100%; border: none;
-        }
+        .form-section { background: white; padding: 20px; border-radius: 16px; margin-top: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
+        .form-container { position: relative; overflow: hidden; width: 100%; padding-top: 100%; }
+        .form-container iframe { position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; border: none; }
 
         footer { text-align: center; padding: 30px; color: #888; font-size: 0.8em; }
+
+        /* --- Lightbox 燈箱樣式 --- */
+        .lightbox {
+            display: none; position: fixed; z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center; align-items: center;
+        }
+        .lightbox-content {
+            max-width: 90%; max-height: 90%;
+            border-radius: 5px; box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+        .close-lightbox {
+            position: absolute; top: 20px; right: 30px;
+            color: white; font-size: 40px; font-weight: bold;
+            cursor: pointer;
+        }
 
         @media (max-width: 600px) {
             .form-container { padding-top: 150%; }
@@ -431,28 +342,27 @@
 </head>
 <body>
 
+    <!-- Lightbox 容器 -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
     <div class="hero">
-        <div class="company-badge">路斯科技 LUZCOGI</div>
+        <!-- LOGO 懸浮面板 -->
+        <div class="logo-glass-panel">
+            <img src="logo.png" alt="路斯科技 LUZCOGI" class="logo-img">
+        </div>
+
         <h1>2025 年度尾牙暨年終教育訓練</h1>
         <p>專業精進 · 團隊凝聚 · 榮耀時刻</p>
         
-        <!-- 優化後的倒數計時器 -->
+        <!-- 倒數計時器 -->
         <div class="countdown-container">
             <div class="time-box"><span id="days" class="time-number">00</span><span class="time-label">Days</span></div>
             <div class="time-box"><span id="hours" class="time-number">00</span><span class="time-label">Hrs</span></div>
             <div class="time-box"><span id="minutes" class="time-number">00</span><span class="time-label">Mins</span></div>
             <div class="time-box"><span id="seconds" class="time-number">00</span><span class="time-label">Sec</span></div>
-        </div>
-    </div>
-
-    <!-- 天氣小工具 -->
-    <div class="weather-widget-container">
-        <div class="weather-card">
-            <!-- WeatherWidget.io 代碼 -->
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d56120d82/miaoli-county/" data-label_1="MIAOLI" data-label_2="苗栗天氣預報" data-theme="pure" >MIAOLI 苗栗天氣預報</a>
-            <script>
-            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-            </script>
         </div>
     </div>
 
@@ -464,15 +374,11 @@
                 <button class="tab-btn active" onclick="openTab(event, 'day1')">Day 1 (1/22)</button>
                 <button class="tab-btn" onclick="openTab(event, 'day2')">Day 2 (1/23)</button>
                 <button class="tab-btn" onclick="openTab(event, 'day3')">Day 3 (1/24)</button>
-                <button class="tab-btn" onclick="openTab(event, 'schedule')">📅 教育訓練</button>
-                <button class="tab-btn" onclick="openTab(event, 'abroad')">✈️ 國外旅遊</button>
-                <button class="tab-btn" onclick="openTab(event, 'room')">🛏️ 房型分配</button>
-                <button class="tab-btn" onclick="openTab(event, 'seat')">🍽️ 座位表</button>
-                <button class="tab-btn" onclick="openTab(event, 'car')">🚗 車輛安排</button>
+                <button class="tab-btn" onclick="openTab(event, 'other')">ℹ️ 其他資訊</button>
             </div>
         </div>
 
-        <!-- Day 1 (Vertical Timeline) -->
+        <!-- Day 1 -->
         <div id="day1" class="content-section active">
             <div class="timeline">
                 
@@ -483,15 +389,18 @@
                         <span class="time-tag">11:00 - 12:00</span>
                         <h3 class="event-title">中餐：客家風味桌菜</h3>
                         <div class="location-row">
-                            <i class="fas fa-map-marker-alt"></i> 夢松園庭園餐廳
+                            <a href="https://maps.app.goo.gl/W69Di9t3hopAKHUk7" target="_blank" class="location-link">
+                                <i class="fas fa-map-marker-alt"></i> 夢松園庭園餐廳 (導航)
+                            </a>
+                        </div>
+                        <!-- 苗栗公館天氣 -->
+                        <div class="mini-weather">
+                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d50120d83/gongguan-township/" data-label_1="公館鄉" data-label_2="天氣預報" data-theme="pure" >公館鄉 天氣預報</a>
                         </div>
                         <div class="desc-box">
                             🌿 <strong>山林間的慢活饗宴</strong><br>
                             招牌的客家美味、海產與山產野味，享受美好的旅行慢活時光。
                         </div>
-                        <a href="https://maps.app.goo.gl/W69Di9t3hopAKHUk7" target="_blank" class="btn-block">
-                            <i class="fas fa-location-arrow"></i> 開啟導航
-                        </a>
                     </div>
                 </div>
 
@@ -502,15 +411,16 @@
                         <span class="time-tag">13:00 - 17:30</span>
                         <h3 class="event-title">湯悅溫泉會館 (教育訓練)</h3>
                         <div class="location-row">
-                            <i class="fas fa-building"></i> 湯悅會議室
+                            <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="location-link">
+                                <i class="fas fa-building"></i> 湯悅會議室 (導航)
+                            </a>
+                        </div>
+                        <!-- 苗栗泰安天氣 -->
+                        <div class="mini-weather">
+                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d43120d97/taian-township/" data-label_1="泰安鄉" data-label_2="天氣預報" data-theme="pure" >泰安鄉 天氣預報</a>
                         </div>
                         <div class="media-container">
                             <img src="meeting1.jpg?v=3" class="card-img" alt="前置會議">
-                        </div>
-                        <div style="margin-top:10px;">
-                            <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="btn-block">
-                                <i class="fas fa-location-arrow"></i> 開啟導航
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -521,10 +431,8 @@
                     <div class="timeline-content">
                         <span class="time-tag">18:00 - 19:00</span>
                         <h3 class="event-title">晚餐：個人鍋物</h3>
-                        <div class="location-row">
-                            <i class="fas fa-utensils"></i> 湯悅溫泉會館餐廳
-                        </div>
-                        <div class="desc-box" style="border-color: #FF6B6B; background-color: #fff5f5;">
+                        <div class="location-row"><i class="fas fa-utensils"></i> 湯悅溫泉會館餐廳</div>
+                        <div class="desc-box" style="border-color: var(--secondary-color); background-color: #e3f2fd;">
                             ⚠️ <strong>重要提醒：</strong><br>
                             請大家務必填寫 Google 表單選擇湯頭與肉品！
                         </div>
@@ -541,7 +449,7 @@
                         <span class="time-tag">19:00 ~</span>
                         <h3 class="event-title">自由活動 / 露天風呂</h3>
                         <div class="desc-box">
-                            <strong>♨️ 泰安溫泉 - 48℃ 極致玉泉</strong><br>
+                            <strong>♨️ 泰安溫泉 48℃ 極致玉泉</strong><br>
                             <strong>🕒 開放時段：</strong><br>
                             平日：08:30~12:00 / 14:30~21:00<br>
                             假日：08:30~21:00 (全日)<br>
@@ -556,7 +464,7 @@
             </div>
         </div>
 
-        <!-- Day 2 (Vertical Timeline) -->
+        <!-- Day 2 -->
         <div id="day2" class="content-section">
             <div class="timeline">
                 
@@ -566,9 +474,7 @@
                     <div class="timeline-content">
                         <span class="time-tag">08:30 - 12:00</span>
                         <h3 class="event-title">湯悅溫泉會館 (教育訓練)</h3>
-                        <div class="location-row">
-                            <i class="fas fa-chalkboard-teacher"></i> 湯悅會議室
-                        </div>
+                        <div class="location-row"><i class="fas fa-chalkboard-teacher"></i> 湯悅會議室</div>
                         <div class="media-container">
                             <img src="meeting2.jpg?v=3" class="card-img" alt="教育訓練">
                         </div>
@@ -592,7 +498,13 @@
                         <span class="time-tag">13:30 - 17:00</span>
                         <h3 class="event-title">極限山訓挑戰</h3>
                         <div class="location-row">
-                            <i class="fas fa-map-marker-alt"></i> 苗栗騰龍溫泉山莊
+                            <a href="https://maps.app.goo.gl/1ZpPaxXGPxcfsNbS7" target="_blank" class="location-link">
+                                <i class="fas fa-map-marker-alt"></i> 苗栗騰龍溫泉山莊 (導航)
+                            </a>
+                        </div>
+                        <!-- 苗栗泰安天氣 -->
+                        <div class="mini-weather">
+                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d43120d97/taian-township/" data-label_1="泰安鄉" data-label_2="天氣預報" data-theme="pure" >泰安鄉 天氣預報</a>
                         </div>
                         <div class="desc-box">內容：攀岩、垂降、走鋼索</div>
                         
@@ -603,13 +515,8 @@
                                 <div class="slider-item"><img src="tightrope.jpg" alt="走鋼索"></div>
                             </div>
                             <div style="text-align: center; font-size: 0.8em; color: #999; margin-top: 5px;">
-                                (可左右滑動查看更多照片 ↔️)
+                                (點擊圖片放大 / 左右滑動 ↔️)
                             </div>
-                        </div>
-                        <div style="margin-top: 15px;">
-                            <a href="https://maps.app.goo.gl/1ZpPaxXGPxcfsNbS7" target="_blank" class="btn-block">
-                                <i class="fas fa-location-arrow"></i> 開啟導航
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -621,21 +528,20 @@
                         <span class="time-tag">18:00 - 21:00</span>
                         <h3 class="event-title">🏆 年度尾牙晚宴</h3>
                         <div class="location-row">
-                            <i class="fas fa-building"></i> 湯悅宴會廳
+                            <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="location-link">
+                                <i class="fas fa-building"></i> 湯悅宴會廳 (導航)
+                            </a>
                         </div>
                         <div class="desc-box">
                             🎉 盡情享用美食，期待大獎降臨！
                         </div>
-                        <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="btn-block">
-                            <i class="fas fa-location-arrow"></i> 開啟導航
-                        </a>
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <!-- Day 3 (Vertical Timeline) -->
+        <!-- Day 3 -->
         <div id="day3" class="content-section">
             <div class="timeline">
                 
@@ -656,15 +562,18 @@
                         <span class="time-tag">11:30 - 12:30</span>
                         <h3 class="event-title">中餐：棗莊客家料理</h3>
                         <div class="location-row">
-                            <i class="fas fa-map-marker-alt"></i> 棗莊古藝庭園膳坊
+                            <a href="https://maps.app.goo.gl/4GRiSoTYPmimYJTDA" target="_blank" class="location-link">
+                                <i class="fas fa-map-marker-alt"></i> 棗莊古藝庭園膳坊 (導航)
+                            </a>
+                        </div>
+                        <!-- 苗栗公館天氣 -->
+                        <div class="mini-weather">
+                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d50120d83/gongguan-township/" data-label_1="公館鄉" data-label_2="天氣預報" data-theme="pure" >公館鄉 天氣預報</a>
                         </div>
                         <div class="desc-box">
                             🏮 <strong>古物陳列與紅棗美食的結合</strong><br>
                             棗莊邁入第18年，莫忘初衷。品嚐美食的同時，也能了解早期台灣生活情景。
                         </div>
-                        <a href="https://maps.app.goo.gl/4GRiSoTYPmimYJTDA" target="_blank" class="btn-block">
-                            <i class="fas fa-location-arrow"></i> 開啟導航
-                        </a>
                     </div>
                 </div>
 
@@ -675,11 +584,17 @@
                         <span class="time-tag">13:00 - 15:00</span>
                         <h3 class="event-title">JEA 橋頭堡打水彈</h3>
                         <div class="location-row">
-                            <i class="fas fa-map-marker-alt"></i> JEA 橋頭堡
+                            <a href="https://maps.app.goo.gl/K2qVagj5WAQhMwcDA" target="_blank" class="location-link">
+                                <i class="fas fa-map-marker-alt"></i> JEA 橋頭堡 (導航)
+                            </a>
+                        </div>
+                        <!-- 苗栗後龍天氣 -->
+                        <div class="mini-weather">
+                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d62120d79/houlong-township/" data-label_1="後龍鎮" data-label_2="天氣預報" data-theme="pure" >後龍鎮 天氣預報</a>
                         </div>
                         
                         <!-- 裝備提醒 -->
-                        <div class="desc-box" style="border-color: #4ECDC4; background-color: #e8f8f5;">
+                        <div class="desc-box" style="border-color: var(--secondary-color); background-color: #e3f2fd;">
                             <div class="equipment-layout">
                                 <div class="equipment-text">
                                     🛠️ <strong>裝備小叮嚀：</strong><br>
@@ -690,31 +605,30 @@
                             </div>
                         </div>
 
-                        <!-- 影片區塊 1 -->
-                        <div class="video-header">
-                            <i class="fas fa-play-circle"></i> 歡樂回顧
+                        <!-- 影片區塊 1: 文字在上方 -->
+                        <div class="video-caption-highlight">
+                            <strong>🎬 歡樂回顧：</strong><br>
+                            大家還記得之前打鐳戰時，笑聲不斷的畫面嗎？<br>
+                            這次的水彈一樣刺激好玩，不用害怕也不用擔心，<br>
+                            讓我們一起安全地釋放壓力、盡情享受吧！💪
                         </div>
+                        <div class="video-header"><i class="fas fa-play-circle"></i> 點擊播放回顧</div>
                         <video controls playsinline class="card-video">
                             <source src="laser_war.mp4" type="video/mp4">
                         </video>
                         
-                        <!-- 影片區塊 2 -->
-                        <div class="video-header" style="margin-top:20px;">
-                            <i class="fas fa-fire"></i> 傳說回歸
+                        <!-- 影片區塊 2: 文字在上方 -->
+                        <div class="xiaodu-caption">
+                            <div class="xiaodu-title">🔥 傳說，重現戰場！</div>
+                            沉睡已久的男人回來了！？<br>
+                            還記得曾經這個男人在戰場中大殺四方、橫掃千軍嗎？<br>
+                            這次... 小杜會再帶給我們怎麼樣的激情表現呢？<br>
+                            <strong>讓我們拭目以待！</strong>
                         </div>
+                        <div class="video-header"><i class="fas fa-fire"></i> 傳說回歸</div>
                         <video controls playsinline class="card-video">
                             <source src="xiaodu.mp4" type="video/mp4">
                         </video>
-                        <div class="xiaodu-caption">
-                            <div class="xiaodu-title">🔥 傳說，重現戰場！</div>
-                            沉睡已久的男人回來了！？這次... 小杜會再帶給我們怎麼樣的激情表現呢？
-                        </div>
-
-                        <div style="margin-top: 15px;">
-                            <a href="https://maps.app.goo.gl/K2qVagj5WAQhMwcDA" target="_blank" class="btn-block">
-                                <i class="fas fa-location-arrow"></i> 開啟導航
-                            </a>
-                        </div>
                     </div>
                 </div>
 
@@ -731,63 +645,49 @@
             </div>
         </div>
 
-        <!-- Coming Soon 分頁們 (Mysterious Blur Effect) -->
-        <div id="schedule" class="content-section">
-            <div class="mystery-card">
-                <div class="mystery-overlay">
-                    <i class="fas fa-lock"></i> <span class="mystery-text">即將公佈</span>
+        <!-- 其他資訊分頁 (Grid Layout) -->
+        <div id="other" class="content-section">
+            <div class="other-info-grid">
+                <div class="mystery-card">
+                    <div class="mystery-overlay"><i class="fas fa-clipboard-list"></i> <span class="mystery-text">教育訓練時程</span></div>
+                    <div class="mystery-content">
+                        <h3>時程表</h3><p>內容確認中...</p><p>內容確認中...</p>
+                    </div>
                 </div>
-                <div class="mystery-content">
-                    <h3>教育訓練時程表</h3>
-                    <p>09:00 - 09:30 報到</p>
-                    <p>09:30 - 10:30 產品介紹</p>
-                    <p>10:30 - 12:00 分組討論</p>
-                    <p>12:00 - 13:30 午餐時間</p>
-                    <p>詳細流程確認中...</p>
+
+                <div class="mystery-card">
+                    <div class="mystery-overlay"><i class="fas fa-plane-departure"></i> <span class="mystery-text">國外員工旅遊</span></div>
+                    <div class="mystery-content">
+                        <h3>旅遊簡介</h3><p>目的地確認中...</p><p>日期確認中...</p>
+                    </div>
+                </div>
+
+                <div class="mystery-card">
+                    <div class="mystery-overlay"><i class="fas fa-bed"></i> <span class="mystery-text">房型分配名單</span></div>
+                    <div class="mystery-content">
+                        <h3>房型名單</h3><p>名單確認中...</p><p>名單確認中...</p>
+                    </div>
+                </div>
+
+                <div class="mystery-card">
+                    <div class="mystery-overlay"><i class="fas fa-chair"></i> <span class="mystery-text">尾牙座位表</span></div>
+                    <div class="mystery-content">
+                        <h3>座位名單</h3><p>座位安排中...</p><p>座位安排中...</p>
+                    </div>
+                </div>
+
+                <div class="mystery-card">
+                    <div class="mystery-overlay"><i class="fas fa-car"></i> <span class="mystery-text">車輛安排名單</span></div>
+                    <div class="mystery-content">
+                        <h3>車輛名單</h3><p>車輛調度中...</p><p>車輛調度中...</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div id="abroad" class="content-section">
-            <div class="mystery-card">
-                <div class="mystery-overlay">
-                    <i class="fas fa-plane"></i> <span class="mystery-text">敬請期待</span>
-                </div>
-                <div class="mystery-content">
-                    <h3>國外員工旅遊簡介</h3>
-                    <img src="https://via.placeholder.com/300x150" style="width:100%; opacity:0.3;">
-                    <p>目的地：神秘國度</p>
-                    <p>天數：5天4夜</p>
-                    <p>預計出發：2026...</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="room" class="content-section">
-            <div class="mystery-card">
-                <div class="mystery-overlay"><i class="fas fa-lock"></i> <span class="mystery-text">即將公佈</span></div>
-                <div class="mystery-content">
-                    <h3>房型分配名單</h3><p>名單確認中...</p><p>名單確認中...</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="seat" class="content-section">
-            <div class="mystery-card">
-                <div class="mystery-overlay"><i class="fas fa-lock"></i> <span class="mystery-text">即將公佈</span></div>
-                <div class="mystery-content">
-                    <h3>尾牙座位表</h3><p>座位安排中...</p><p>座位安排中...</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="car" class="content-section">
-            <div class="mystery-card">
-                <div class="mystery-overlay"><i class="fas fa-lock"></i> <span class="mystery-text">即將公佈</span></div>
-                <div class="mystery-content">
-                    <h3>車輛安排名單</h3><p>車輛調度中...</p><p>車輛調度中...</p>
-                </div>
-            </div>
+        <!-- 表單調查區 (iframe) -->
+        <div id="survey" class="content-section">
+            <!-- 如果需要額外的表單分頁可保留，目前 Day 1 已有按鈕 -->
         </div>
 
     </div>
@@ -796,7 +696,10 @@
         Designed by 福委會 ❤️ | <span id="update-time"></span>
     </footer>
 
+    <!-- JS 腳本 (包含天氣插件) -->
     <script>
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+
         function openTab(evt, tabName) {
             var i, content, tablinks;
             content = document.getElementsByClassName("content-section");
@@ -807,12 +710,10 @@
             evt.currentTarget.className += " active";
         }
 
-        // 倒數計時邏輯
         const targetDate = new Date("Jan 22, 2026 00:00:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
             const distance = targetDate - now;
-            
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -824,7 +725,6 @@
             document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
         }, 1000);
 
-        // 自動顯示最後更新日期 + 時間
         const date = new Date(document.lastModified);
         const year = date.getFullYear();
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -832,6 +732,22 @@
         const hours = date.getHours().toString().padStart(2, '0');
         const minutes = date.getMinutes().toString().padStart(2, '0');
         document.getElementById("update-time").innerText = `最後更新：${year}/${month}/${day} ${hours}:${minutes}`;
+
+        // Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const images = document.querySelectorAll('.card-img, .equipment-img, .slider-item img');
+
+        images.forEach(img => {
+            img.addEventListener('click', function() {
+                lightbox.style.display = "flex";
+                lightboxImg.src = this.src;
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.style.display = "none";
+        }
     </script>
 </body>
 </html>
