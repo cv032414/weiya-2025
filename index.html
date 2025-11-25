@@ -115,14 +115,14 @@
             z-index: 5;
         }
 
-        /* --- 分頁按鈕 (修正置中問題) --- */
+        /* --- 分頁按鈕 --- */
         .tabs-wrapper {
             overflow-x: auto;
             white-space: nowrap;
             padding-bottom: 5px;
             margin-bottom: 20px;
             -webkit-overflow-scrolling: touch;
-            text-align: center; /* 修正2：讓按鈕置中 */
+            text-align: center;
         }
         .tabs {
             display: inline-flex;
@@ -192,7 +192,7 @@
         }
         .location-link i { margin-right: 5px; }
 
-        /* 天氣樣式 */
+        /* 天氣樣式 (雖然移除了 HTML，但保留 CSS 以防未來需要，或可直接忽略) */
         .mini-weather {
             display: block;
             width: 100%;
@@ -205,7 +205,7 @@
             border: 1px solid #eee;
         }
 
-        /* 描述框 (修正1：移除左側粗邊框) */
+        /* 描述框 */
         .desc-box {
             background-color: #f8f9fa;
             border: 1px dashed #cbd5e0;
@@ -269,12 +269,10 @@
             .video-header { max-width: 400px; margin: 5px auto 0; }
         }
 
-        /* 修正1：移除左側粗邊框 */
         .video-caption-highlight {
             background-color: #e3f2fd; color: #0060a9;
             padding: 12px; border-radius: 8px; margin-top: 20px;
             font-weight: bold;
-            /* border-left: 4px solid var(--primary-color);  <-- 已移除 */
         }
 
         .xiaodu-caption {
@@ -330,9 +328,8 @@
 </head>
 <body>
 
-    <!-- Lightbox 容器 -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <span class="close-lightbox">&times;</span>
+        <span class="close-lightbox">×</span>
         <img class="lightbox-content" id="lightbox-img">
     </div>
 
@@ -354,7 +351,6 @@
 
     <div class="container">
         
-        <!-- 滑動選單 (已修正：按鈕置中) -->
         <div class="tabs-wrapper">
             <div class="tabs">
                 <button class="tab-btn active" onclick="openTab(event, 'day1')">Day 1 (1/22)</button>
@@ -364,11 +360,9 @@
             </div>
         </div>
 
-        <!-- Day 1 -->
         <div id="day1" class="content-section active">
             <div class="timeline">
                 
-                <!-- 午餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-utensils"></i></div>
                     <div class="timeline-content">
@@ -379,10 +373,7 @@
                                 <i class="fas fa-map-marker-alt"></i> 夢松園庭園餐廳 (導航)
                             </a>
                         </div>
-                        <!-- 苗栗公館天氣 (確保使用 HTTPS 開啟網頁才會顯示) -->
-                        <div class="mini-weather">
-                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d50120d83/gongguan-township/" data-label_1="公館鄉" data-label_2="天氣預報" data-theme="pure" >公館鄉 天氣預報</a>
-                        </div>
+                        
                         <div class="desc-box">
                             🌿 <strong>山林間的慢活饗宴</strong><br>
                             招牌的客家美味、海產與山產野味，享受美好的旅行慢活時光。
@@ -390,7 +381,6 @@
                     </div>
                 </div>
 
-                <!-- 教育訓練 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-chalkboard-teacher"></i></div>
                     <div class="timeline-content">
@@ -401,17 +391,13 @@
                                 <i class="fas fa-building"></i> 湯悅會議室 (導航)
                             </a>
                         </div>
-                        <!-- 苗栗泰安天氣 -->
-                        <div class="mini-weather">
-                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d43120d97/taian-township/" data-label_1="泰安鄉" data-label_2="天氣預報" data-theme="pure" >泰安鄉 天氣預報</a>
-                        </div>
+                        
                         <div class="media-container">
                             <img src="meeting1.jpg?v=3" class="card-img" alt="前置會議">
                         </div>
                     </div>
                 </div>
 
-                <!-- 晚餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-concierge-bell"></i></div>
                     <div class="timeline-content">
@@ -428,7 +414,6 @@
                     </div>
                 </div>
 
-                <!-- 泡湯 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-hot-tub"></i></div>
                     <div class="timeline-content">
@@ -450,11 +435,9 @@
             </div>
         </div>
 
-        <!-- Day 2 -->
         <div id="day2" class="content-section">
             <div class="timeline">
                 
-                <!-- 教育訓練 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-laptop-code"></i></div>
                     <div class="timeline-content">
@@ -467,7 +450,6 @@
                     </div>
                 </div>
 
-                <!-- 午餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-box-open"></i></div>
                     <div class="timeline-content">
@@ -477,7 +459,6 @@
                     </div>
                 </div>
 
-                <!-- 山訓 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-mountain"></i></div>
                     <div class="timeline-content">
@@ -488,10 +469,7 @@
                                 <i class="fas fa-map-marker-alt"></i> 苗栗騰龍溫泉山莊 (導航)
                             </a>
                         </div>
-                        <!-- 苗栗泰安天氣 -->
-                        <div class="mini-weather">
-                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d43120d97/taian-township/" data-label_1="泰安鄉" data-label_2="天氣預報" data-theme="pure" >泰安鄉 天氣預報</a>
-                        </div>
+                        
                         <div class="desc-box">內容：攀岩、垂降、走鋼索</div>
                         
                         <div class="media-container">
@@ -507,17 +485,12 @@
                     </div>
                 </div>
 
-                <!-- 尾牙 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-wine-glass-alt"></i></div>
                     <div class="timeline-content">
                         <span class="time-tag">18:00 - 21:00</span>
                         <h3 class="event-title">🏆 年度尾牙晚宴</h3>
-                        <div class="location-row">
-                            <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="location-link">
-                                <i class="fas fa-building"></i> 湯悅宴會廳 (導航)
-                            </a>
-                        </div>
+                        <div class="location-row"><i class="fas fa-building"></i> 湯悅宴會廳</div>
                         <div class="desc-box">
                             🎉 盡情享用美食，期待大獎降臨！
                         </div>
@@ -527,11 +500,9 @@
             </div>
         </div>
 
-        <!-- Day 3 -->
         <div id="day3" class="content-section">
             <div class="timeline">
                 
-                <!-- 退房 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-suitcase"></i></div>
                     <div class="timeline-content">
@@ -541,7 +512,6 @@
                     </div>
                 </div>
 
-                <!-- 棗莊午餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-utensils"></i></div>
                     <div class="timeline-content">
@@ -552,10 +522,7 @@
                                 <i class="fas fa-map-marker-alt"></i> 棗莊古藝庭園膳坊 (導航)
                             </a>
                         </div>
-                        <!-- 苗栗公館天氣 -->
-                        <div class="mini-weather">
-                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d50120d83/gongguan-township/" data-label_1="公館鄉" data-label_2="天氣預報" data-theme="pure" >公館鄉 天氣預報</a>
-                        </div>
+                        
                         <div class="desc-box">
                             🏮 <strong>古物陳列與紅棗美食的結合</strong><br>
                             棗莊邁入第18年，莫忘初衷。品嚐美食的同時，也能了解早期台灣生活情景。
@@ -563,7 +530,6 @@
                     </div>
                 </div>
 
-                <!-- JEA 水彈 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-crosshairs"></i></div>
                     <div class="timeline-content">
@@ -574,12 +540,7 @@
                                 <i class="fas fa-map-marker-alt"></i> JEA 橋頭堡 (導航)
                             </a>
                         </div>
-                        <!-- 苗栗後龍天氣 -->
-                        <div class="mini-weather">
-                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d62120d79/houlong-township/" data-label_1="後龍鎮" data-label_2="天氣預報" data-theme="pure" >後龍鎮 天氣預報</a>
-                        </div>
                         
-                        <!-- 裝備提醒 -->
                         <div class="desc-box" style="border-color: var(--secondary-color); background-color: #e3f2fd;">
                             <div class="equipment-layout">
                                 <div class="equipment-text">
@@ -591,7 +552,6 @@
                             </div>
                         </div>
 
-                        <!-- 影片區塊 1: 修正1：移除左邊粗藍線 -->
                         <div class="video-caption-highlight">
                             <strong>🎬 歡樂回顧：</strong><br>
                             大家還記得之前打鐳戰時，笑聲不斷的畫面嗎？<br>
@@ -603,7 +563,6 @@
                             <source src="laser_war.mp4" type="video/mp4">
                         </video>
                         
-                        <!-- 影片區塊 2 -->
                         <div class="xiaodu-caption">
                             <div class="xiaodu-title">🔥 傳說，重現戰場！</div>
                             沉睡已久的男人回來了！？<br>
@@ -618,7 +577,6 @@
                     </div>
                 </div>
 
-                <!-- 歸賦 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-home"></i></div>
                     <div class="timeline-content">
@@ -631,7 +589,6 @@
             </div>
         </div>
 
-        <!-- 其他資訊分頁 -->
         <div id="other" class="content-section">
             <div class="other-info-grid">
                 <div class="mystery-card">
@@ -676,11 +633,6 @@
     <footer>
         Designed by 福委會 ❤️ | <span id="update-time"></span>
     </footer>
-
-    <!-- 天氣腳本 -->
-    <script>
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-    </script>
 
     <script>
         function openTab(evt, tabName) {
