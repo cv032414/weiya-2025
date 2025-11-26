@@ -78,7 +78,7 @@
             font-weight: 500;
         }
 
-        /* 倒數計時器 */
+        /* 倒數計時器 (翻頁效果優化) */
         .countdown-container {
             display: flex;
             justify-content: center;
@@ -86,25 +86,39 @@
             margin-top: 20px;
         }
         .time-box {
-            background: rgba(255,255,255,0.2);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1) 50%); /* 模擬翻頁上下光影 */
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 8px 12px;
             min-width: 60px;
             text-align: center;
             color: white;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        /* 模擬翻頁中間的線 */
+        .time-box::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            height: 1px;
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
         .time-number {
             display: block;
             font-size: 1.5em;
             font-weight: 800;
-            line-height: 1;
+            line-height: 1.1;
+            text-shadow: 0 2px 2px rgba(0,0,0,0.1);
         }
         .time-label {
             font-size: 0.75em;
             opacity: 0.9;
             text-transform: uppercase;
+            margin-top: 2px;
+            display: block;
         }
 
         .container {
@@ -191,6 +205,19 @@
             font-size: 1em;
         }
         .location-link i { margin-right: 5px; }
+
+        /* 天氣樣式 */
+        .mini-weather {
+            display: block;
+            width: 100%;
+            height: auto; 
+            min-height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+        }
 
         /* 描述框 */
         .desc-box {
@@ -315,6 +342,7 @@
 </head>
 <body>
 
+    <!-- Lightbox 容器 -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
         <span class="close-lightbox">×</span>
         <img class="lightbox-content" id="lightbox-img">
@@ -328,7 +356,8 @@
         <h1>2025 年度尾牙暨年終教育訓練</h1>
         <p>專業精進 · 團隊凝聚 · 榮耀時刻</p>
         
-        <div class="countdown-container">
+        <!-- 倒數計時器 (修正：活動結束後會隱藏並顯示結束訊息) -->
+        <div class="countdown-container" id="countdown-wrapper">
             <div class="time-box"><span id="days" class="time-number">00</span><span class="time-label">Days</span></div>
             <div class="time-box"><span id="hours" class="time-number">00</span><span class="time-label">Hrs</span></div>
             <div class="time-box"><span id="minutes" class="time-number">00</span><span class="time-label">Mins</span></div>
@@ -338,6 +367,7 @@
 
     <div class="container">
         
+        <!-- 滑動選單 -->
         <div class="tabs-wrapper">
             <div class="tabs">
                 <button class="tab-btn active" onclick="openTab(event, 'day1')">Day 1 (1/22)</button>
@@ -347,9 +377,11 @@
             </div>
         </div>
 
+        <!-- Day 1 -->
         <div id="day1" class="content-section active">
             <div class="timeline">
                 
+                <!-- 午餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-utensils"></i></div>
                     <div class="timeline-content">
@@ -360,7 +392,10 @@
                                 <i class="fas fa-map-marker-alt"></i> 夢松園庭園餐廳 (導航)
                             </a>
                         </div>
-                        
+                        <!-- 苗栗公館天氣 -->
+                        <div class="mini-weather">
+                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d50120d83/gongguan-township/" data-label_1="公館鄉" data-label_2="天氣預報" data-theme="pure" >公館鄉 天氣預報</a>
+                        </div>
                         <div class="desc-box">
                             🌿 <strong>山林間的慢活饗宴</strong><br>
                             招牌的客家美味、海產與山產野味，享受美好的旅行慢活時光。
@@ -368,23 +403,29 @@
                     </div>
                 </div>
 
+                <!-- 教育訓練 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-chalkboard-teacher"></i></div>
                     <div class="timeline-content">
                         <span class="time-tag">13:00 - 17:30</span>
                         <h3 class="event-title">湯悅溫泉會館 (教育訓練)</h3>
+                        <!-- 修正：更換圖示為地標 (與夢松園一致) -->
                         <div class="location-row">
                             <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="location-link">
-                                <i class="fas fa-building"></i> 湯悅會議室 (導航)
+                                <i class="fas fa-map-marker-alt"></i> 湯悅會議室 (導航)
                             </a>
                         </div>
-                        
+                        <!-- 苗栗泰安天氣 -->
+                        <div class="mini-weather">
+                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d43120d97/taian-township/" data-label_1="泰安鄉" data-label_2="天氣預報" data-theme="pure" >泰安鄉 天氣預報</a>
+                        </div>
                         <div class="media-container">
                             <img src="meeting1.jpg?v=3" class="card-img" alt="前置會議">
                         </div>
                     </div>
                 </div>
 
+                <!-- 晚餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-concierge-bell"></i></div>
                     <div class="timeline-content">
@@ -401,6 +442,7 @@
                     </div>
                 </div>
 
+                <!-- 泡湯 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-hot-tub"></i></div>
                     <div class="timeline-content">
@@ -422,9 +464,11 @@
             </div>
         </div>
 
+        <!-- Day 2 -->
         <div id="day2" class="content-section">
             <div class="timeline">
                 
+                <!-- 教育訓練 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-laptop-code"></i></div>
                     <div class="timeline-content">
@@ -437,6 +481,7 @@
                     </div>
                 </div>
 
+                <!-- 午餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-box-open"></i></div>
                     <div class="timeline-content">
@@ -446,6 +491,7 @@
                     </div>
                 </div>
 
+                <!-- 山訓 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-mountain"></i></div>
                     <div class="timeline-content">
@@ -456,7 +502,10 @@
                                 <i class="fas fa-map-marker-alt"></i> 苗栗騰龍溫泉山莊 (導航)
                             </a>
                         </div>
-                        
+                        <!-- 苗栗泰安天氣 -->
+                        <div class="mini-weather">
+                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d43120d97/taian-township/" data-label_1="泰安鄉" data-label_2="天氣預報" data-theme="pure" >泰安鄉 天氣預報</a>
+                        </div>
                         <div class="desc-box">內容：攀岩、垂降、走鋼索</div>
                         
                         <div class="media-container">
@@ -472,12 +521,17 @@
                     </div>
                 </div>
 
+                <!-- 尾牙 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-wine-glass-alt"></i></div>
                     <div class="timeline-content">
                         <span class="time-tag">18:00 - 21:00</span>
                         <h3 class="event-title">🏆 年度尾牙晚宴</h3>
-                        <div class="location-row"><i class="fas fa-building"></i> 湯悅宴會廳</div>
+                        <div class="location-row">
+                            <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="location-link">
+                                <i class="fas fa-building"></i> 湯悅宴會廳 (導航)
+                            </a>
+                        </div>
                         <div class="desc-box">
                             🎉 盡情享用美食，期待大獎降臨！
                         </div>
@@ -487,9 +541,11 @@
             </div>
         </div>
 
+        <!-- Day 3 -->
         <div id="day3" class="content-section">
             <div class="timeline">
                 
+                <!-- 退房 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-suitcase"></i></div>
                     <div class="timeline-content">
@@ -499,6 +555,7 @@
                     </div>
                 </div>
 
+                <!-- 棗莊午餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-utensils"></i></div>
                     <div class="timeline-content">
@@ -509,7 +566,10 @@
                                 <i class="fas fa-map-marker-alt"></i> 棗莊古藝庭園膳坊 (導航)
                             </a>
                         </div>
-                        
+                        <!-- 苗栗公館天氣 -->
+                        <div class="mini-weather">
+                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d50120d83/gongguan-township/" data-label_1="公館鄉" data-label_2="天氣預報" data-theme="pure" >公館鄉 天氣預報</a>
+                        </div>
                         <div class="desc-box">
                             🏮 <strong>古物陳列與紅棗美食的結合</strong><br>
                             棗莊邁入第18年，莫忘初衷。品嚐美食的同時，也能了解早期台灣生活情景。
@@ -517,17 +577,24 @@
                     </div>
                 </div>
 
+                <!-- JEA 水彈 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-crosshairs"></i></div>
                     <div class="timeline-content">
                         <span class="time-tag">13:00 - 15:00</span>
                         <h3 class="event-title">JEA 橋頭堡打水彈</h3>
                         <div class="location-row">
-                            <a href="https://maps.app.goo.gl/aD45XVMFnGWyfwkM9" target="_blank" class="location-link">
+                            <!-- 修正：更換 JEA 連結 -->
+                            <a href="https://maps.app.goo.gl/CXdKUJDQZUwV2Th9A" target="_blank" class="location-link">
                                 <i class="fas fa-map-marker-alt"></i> JEA 橋頭堡 (導航)
                             </a>
                         </div>
+                        <!-- 苗栗後龍天氣 -->
+                        <div class="mini-weather">
+                            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/24d62120d79/houlong-township/" data-label_1="後龍鎮" data-label_2="天氣預報" data-theme="pure" >後龍鎮 天氣預報</a>
+                        </div>
                         
+                        <!-- 裝備提醒 -->
                         <div class="desc-box" style="border-color: var(--secondary-color); background-color: #e3f2fd;">
                             <div class="equipment-layout">
                                 <div class="equipment-text">
@@ -576,6 +643,7 @@
             </div>
         </div>
 
+        <!-- 其他資訊分頁 (Grid Layout) -->
         <div id="other" class="content-section">
             <div class="other-info-grid">
                 <div class="mystery-card">
@@ -621,6 +689,11 @@
         Designed by 福委會 ❤️ | <span id="update-time"></span>
     </footer>
 
+    <!-- Weather Script: Placed separate to ensure loading -->
+    <script>
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+    </script>
+
     <script>
         function openTab(evt, tabName) {
             var i, content, tablinks;
@@ -633,10 +706,17 @@
         }
 
         const targetDate = new Date("Jan 22, 2026 00:00:00").getTime();
-        setInterval(function() {
+        const timerInterval = setInterval(function() {
             const now = new Date().getTime();
             const distance = targetDate - now;
             
+            // 修正：活動結束後的處理
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.getElementById("countdown-wrapper").innerHTML = "<div style='color:white; font-size:1.5em; font-weight:bold; text-shadow:0 2px 4px rgba(0,0,0,0.2); padding:10px;'>🎉 活動圓滿結束</div>";
+                return;
+            }
+
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
