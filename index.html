@@ -78,7 +78,7 @@
             font-weight: 500;
         }
 
-        /* 倒數計時器 (翻頁效果優化) */
+        /* 倒數計時器 (翻頁效果) */
         .countdown-container {
             display: flex;
             justify-content: center;
@@ -96,9 +96,8 @@
             color: white;
             position: relative;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            perspective: 1000px; /* 為3D翻轉做準備 */
+            perspective: 1000px;
         }
-        /* 中間分割線 */
         .time-box::after {
             content: '';
             position: absolute;
@@ -113,9 +112,8 @@
             font-weight: 800;
             line-height: 1.1;
             text-shadow: 0 2px 2px rgba(0,0,0,0.1);
-            transform-style: preserve-3d; /* 3D 效果 */
+            transform-style: preserve-3d;
         }
-        /* 翻轉動畫 */
         .flip {
             animation: flip-effect 0.6s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
         }
@@ -123,7 +121,6 @@
             0% { transform: rotateX(0); }
             100% { transform: rotateX(-360deg); }
         }
-
         .time-label {
             font-size: 0.75em;
             opacity: 0.9;
@@ -216,8 +213,14 @@
             font-size: 1em;
         }
         .location-link i { margin-right: 5px; }
+        /* 針對沒有連結的純文字地點樣式 */
+        .location-text {
+            display: inline-flex; align-items: center;
+            color: #666; font-weight: bold;
+            font-size: 1em;
+        }
+        .location-text i { margin-right: 5px; color: var(--primary-color); }
 
-        /* 描述框 */
         .desc-box {
             background-color: #f8f9fa;
             border: 1px dashed #cbd5e0;
@@ -354,7 +357,7 @@
         <h1>2025 年度尾牙暨年終教育訓練</h1>
         <p>專業精進 · 團隊凝聚 · 榮耀時刻</p>
         
-        <!-- 倒數計時器 (已優化：翻頁動畫 + 結束訊息) -->
+        <!-- 倒數計時器 (翻頁效果 + 結束訊息) -->
         <div class="countdown-container" id="countdown-wrapper">
             <div class="time-box"><span id="days" class="time-number">00</span><span class="time-label">Days</span></div>
             <div class="time-box"><span id="hours" class="time-number">00</span><span class="time-label">Hrs</span></div>
@@ -371,7 +374,7 @@
                 <button class="tab-btn active" onclick="openTab(event, 'day1')">Day 1 (1/22)</button>
                 <button class="tab-btn" onclick="openTab(event, 'day2')">Day 2 (1/23)</button>
                 <button class="tab-btn" onclick="openTab(event, 'day3')">Day 3 (1/24)</button>
-                <button class="tab-btn" onclick="openTab(event, 'other')">ℹ️ 其他資訊</button>
+                <button class="tab-btn" onclick="openTab(event, 'other')"><i class="fas fa-info-circle"></i> 其他資訊</button>
             </div>
         </div>
 
@@ -390,6 +393,7 @@
                                 <i class="fas fa-map-marker-alt"></i> 夢松園庭園餐廳 (導航)
                             </a>
                         </div>
+                        
                         <div class="desc-box">
                             🌿 <strong>山林間的慢活饗宴</strong><br>
                             招牌的客家美味、海產與山產野味，享受美好的旅行慢活時光。
@@ -408,6 +412,7 @@
                                 <i class="fas fa-map-marker-alt"></i> 湯悅會議室 (導航)
                             </a>
                         </div>
+                        
                         <div class="media-container">
                             <img src="meeting1.jpg?v=3" class="card-img" alt="前置會議">
                         </div>
@@ -463,7 +468,7 @@
                     <div class="timeline-content">
                         <span class="time-tag">08:30 - 12:00</span>
                         <h3 class="event-title">湯悅溫泉會館 (教育訓練)</h3>
-                        <div class="location-row"><i class="fas fa-chalkboard-teacher"></i> 湯悅會議室</div>
+                        <div class="location-row"><i class="fas fa-map-marker-alt"></i> 湯悅會議室</div>
                         <div class="media-container">
                             <img src="meeting2.jpg?v=3" class="card-img" alt="教育訓練">
                         </div>
@@ -491,7 +496,8 @@
                                 <i class="fas fa-map-marker-alt"></i> 苗栗騰龍溫泉山莊 (導航)
                             </a>
                         </div>
-                        <div class="desc-box">內容：攀岩、垂降、走鋼索</div>
+                        
+                        <div class="desc-box">內容：垂降、攀岩、走鋼索</div>
                         
                         <div class="media-container">
                             <div class="slider-container">
@@ -512,10 +518,11 @@
                     <div class="timeline-content">
                         <span class="time-tag">18:00 - 21:00</span>
                         <h3 class="event-title">🏆 年度尾牙晚宴</h3>
+                        <!-- 修正：移除連結，改為純文字，圖示改為乾杯 -->
                         <div class="location-row">
-                            <a href="https://maps.app.goo.gl/7LoHGvWCJb3Bnz4R6" target="_blank" class="location-link">
-                                <i class="fas fa-map-marker-alt"></i> 湯悅宴會廳 (導航)
-                            </a>
+                            <div class="location-text">
+                                <i class="fas fa-glass-cheers"></i> 湯悅宴會廳
+                            </div>
                         </div>
                         <div class="desc-box">
                             🎉 盡情享用美食，期待大獎降臨！
@@ -551,6 +558,7 @@
                                 <i class="fas fa-map-marker-alt"></i> 棗莊古藝庭園膳坊 (導航)
                             </a>
                         </div>
+                        
                         <div class="desc-box">
                             🏮 <strong>古物陳列與紅棗美食的結合</strong><br>
                             棗莊邁入第18年，莫忘初衷。品嚐美食的同時，也能了解早期台灣生活情景。
