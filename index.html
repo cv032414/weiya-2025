@@ -137,22 +137,20 @@
             z-index: 5;
         }
 
-        /* --- 分頁按鈕 (修改為浮動導覽列 sticky) --- */
+        /* --- 分頁按鈕 (Sticky) --- */
         .tabs-wrapper {
             overflow-x: auto;
             white-space: nowrap;
             padding-bottom: 10px;
-            padding-top: 10px; /* 增加上方留白 */
+            padding-top: 10px;
             margin-bottom: 20px;
             -webkit-overflow-scrolling: touch;
             text-align: center;
-            
-            /* 新增 Sticky 屬性 */
             position: sticky;
             top: 0;
             z-index: 100;
-            background-color: var(--bg-color); /* 設置背景色避免透明重疊 */
-            border-bottom: 1px solid rgba(0,0,0,0.05); /* 增加一點分隔線感 */
+            background-color: var(--bg-color);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         .tabs {
             display: inline-flex;
@@ -221,7 +219,7 @@
             font-size: 1em;
         }
         .location-link i { margin-right: 5px; }
-        /* 針對沒有連結的純文字地點樣式 */
+        
         .location-text {
             display: inline-flex; align-items: center;
             color: #666; font-weight: bold;
@@ -322,7 +320,7 @@
         }
         .mystery-text { font-weight: bold; color: var(--primary-color); font-size: 1em; }
 
-        /* 新增：行李清單樣式 */
+        /* 行李清單樣式 */
         .checklist-list {
             list-style: none; padding: 0; margin: 0;
         }
@@ -497,6 +495,15 @@
             <div class="timeline">
                 
                 <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-coffee"></i></div>
+                    <div class="timeline-content">
+                        <span class="time-tag">07:00 - 08:30</span>
+                        <h3 class="event-title">飯店早餐</h3>
+                        <div class="location-row"><i class="fas fa-utensils"></i> 湯悅溫泉會館餐廳</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-laptop-code"></i></div>
                     <div class="timeline-content">
                         <span class="time-tag">08:30 - 12:00</span>
@@ -565,6 +572,19 @@
         <div id="day3" class="content-section">
             <div class="timeline">
                 
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-coffee"></i></div>
+                    <div class="timeline-content">
+                        <span class="time-tag">07:00 - 10:00</span>
+                        <h3 class="event-title">飯店早餐</h3>
+                        <div class="location-row"><i class="fas fa-utensils"></i> 湯悅溫泉會館餐廳</div>
+                        <div class="desc-box" style="border-color: var(--accent-color); background-color: #fff8e1;">
+                            ⚠️ <strong>重要提醒：</strong><br>
+                            最晚 09:00 前要入場用餐。
+                        </div>
+                    </div>
+                </div>
+
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-suitcase"></i></div>
                     <div class="timeline-content">
@@ -743,10 +763,8 @@
             evt.currentTarget.className += " active";
         }
 
-        // 修改後的倒數計時邏輯 (包含活動進行中狀態)
-        // 活動開始時間：2026/01/22 00:00
+        // 倒數計時邏輯 (包含活動進行中狀態)
         const startDate = new Date("Jan 22, 2026 00:00:00").getTime();
-        // 活動結束時間：2026/01/24 23:59 (Day 3 結束)
         const endDate = new Date("Jan 24, 2026 23:59:59").getTime();
         
         let prevDays = -1, prevHours = -1, prevMins = -1, prevSecs = -1;
