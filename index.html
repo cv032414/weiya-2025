@@ -140,19 +140,14 @@
         /* --- 分頁按鈕 (Sticky) - 極致滑順優化版 --- */
         .tabs-wrapper {
             width: 100%;
-            /* 1. 設定容器可滾動 */
             overflow-x: auto;
-            /* 2. 關鍵：開啟 iOS 慣性滾動，手感才會有彈性 */
             -webkit-overflow-scrolling: touch; 
-            
             position: sticky;
             top: 0;
             z-index: 100;
             background-color: var(--bg-color);
-            padding: 10px 0; /* 上下留白 */
+            padding: 10px 0;
             border-bottom: 1px solid rgba(0,0,0,0.05);
-            
-            /* 隱藏滾動條 - 視覺更乾淨 */
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
@@ -161,26 +156,20 @@
         }
 
         .tabs {
-            /* 3. 使用 inline-flex 讓寬度可以超過父容器，這是滑動順暢的關鍵 */
             display: inline-flex;
             gap: 10px;
-            /* 4. 在兩側增加內距，讓滑動時第一個和最後一個不會貼邊 */
             padding: 0 20px;
-            /* 確保最小寬度佔滿螢幕 */
             min-width: 100%;
             box-sizing: border-box;
-            
-            /* 5. 手機版預設靠左排列，這是最自然的滑動方式 */
             justify-content: flex-start;
         }
 
-        /* 6. 電腦版 (螢幕較寬時) 改為置中，因為通常不需要滑動 */
         @media (min-width: 768px) {
             .tabs {
-                display: flex; /* 改回 block flex */
+                display: flex;
                 width: 100%;
                 justify-content: center;
-                padding: 0; /* 移除額外內距 */
+                padding: 0;
             }
         }
         
@@ -196,7 +185,6 @@
             transition: all 0.3s ease;
             white-space: nowrap;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            /* 防止按鈕被壓縮 */
             flex-shrink: 0; 
         }
         .tab-btn.active {
@@ -736,7 +724,22 @@
                         <span class="checklist-sub">暈車藥、常備藥等</span>
                     </div>
                 </li>
+                <li class="checklist-item">
+                    <i class="fas fa-cookie-bite"></i>
+                    <div>
+                        <span class="checklist-text">宵夜、乾糧</span>
+                        <span class="checklist-sub">山區無宵夜，建議自備</span>
+                    </div>
+                </li>
             </ul>
+
+            <div class="desc-box" style="margin-top: 20px; border-left: 5px solid #ffbd2e; background-color: #fff8e1;">
+                <strong>🌲 偏遠山區補給提醒：</strong><br>
+                湯悅位處深山，周邊無步行可達之商店。<br>
+                最近的 7-11 開車需 5 分鐘，且 <strong>22:00 就打烊了</strong>！<br>
+                若擔心晚上肚子餓或沒吃飽，<strong>強烈建議自備泡麵、零食</strong>。<br>
+                <small>(館內雖有販賣機，但種類不多，自備比較保險喔！)</small>
+            </div>
         </div>
 
         <div id="other" class="content-section">
