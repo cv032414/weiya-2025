@@ -137,36 +137,50 @@
             z-index: 5;
         }
 
-        /* --- 分頁按鈕 (Sticky) - 優化滑動順暢度 --- */
+        /* --- 分頁按鈕 (Sticky) - 優化滑動與定位 --- */
         .tabs-wrapper {
-            /* 改用 Flex 佈局以獲得更好的滑動體驗 */
+            /* 1. 改用 Flex 佈局，解決 inline-block 造成的滑動卡頓 */
             display: flex;
+            
+            /* 2. 關鍵屬性：自動左右邊距，讓內容少時置中，內容多時可滑動 */
+            /* 配合偽元素使用，見下方 */
+            
             overflow-x: auto;
             padding-bottom: 10px;
             padding-top: 10px;
             margin-bottom: 20px;
-            -webkit-overflow-scrolling: touch; /* 保持 iOS 慣性滑動 */
+            
+            /* 3. 強制開啟 iOS 慣性滑動 */
+            -webkit-overflow-scrolling: touch; 
+            
             position: sticky;
             top: 0;
             z-index: 100;
             background-color: var(--bg-color);
             border-bottom: 1px solid rgba(0,0,0,0.05);
             
-            /* 隱藏捲軸，讓畫面更乾淨 (選用) */
-            scrollbar-width: none; /* Firefox */
+            /* 隱藏捲軸 */
+            scrollbar-width: none;
         }
         .tabs-wrapper::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
+            display: none;
+        }
+        
+        /* 4. 黑魔法：利用偽元素 margin: auto 達成「少則置中，多則滑動」的效果 */
+        .tabs-wrapper::before,
+        .tabs-wrapper::after {
+            content: '';
+            margin: auto;
         }
 
         .tabs {
             display: flex;
             gap: 10px;
-            padding: 0 15px; /* 增加兩側內距，避免按鈕貼邊 */
-            /* 關鍵：利用 margin: auto 讓按鈕較少時置中，較多時可正常滑動 */
-            margin: 0 auto; 
-            width: max-content; /* 確保寬度依內容撐開 */
+            padding: 0 5px;
+            /* 確保寬度依內容撐開 */
+            width: max-content;
         }
+        
         .tab-btn {
             background: white;
             border: 1px solid #eee;
@@ -179,6 +193,9 @@
             transition: all 0.3s ease;
             white-space: nowrap;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            
+            /* 5. 防止按鈕縮小，確保觸控面積 */
+            flex: 0 0 auto; 
         }
         .tab-btn.active {
             background-color: var(--primary-color);
@@ -775,12 +792,12 @@
             document.getElementById(tabName).className += " active";
             evt.currentTarget.className += " active";
             
-            // --- 優化：切換後定位到選單下方，而不是回到最頂端 ---
-            var tabsContainer = document.querySelector('.tabs-wrapper');
-            // 取得選單距離文件頂端的位置
-            var targetPosition = tabsContainer.getBoundingClientRect().top + window.pageYOffset;
+            // --- 優化：切換後強制捲動到 Container 頂部 ---
+            // 說明：不使用 tabs-wrapper 的位置(因為它會 sticky 變成 0)，而是使用整個 container 的起始位置。
+            // 這樣即使滑到下面，點擊分頁也會自動回彈到選單下方開始的第一個行程。
+            var container = document.querySelector('.container');
+            var targetPosition = container.offsetTop;
             
-            // 執行平滑捲動
             window.scrollTo({
                 top: targetPosition, 
                 behavior: 'smooth'
