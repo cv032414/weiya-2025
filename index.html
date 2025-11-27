@@ -137,14 +137,22 @@
             z-index: 5;
         }
 
-        /* --- 分頁按鈕 --- */
+        /* --- 分頁按鈕 (修改為浮動導覽列 sticky) --- */
         .tabs-wrapper {
             overflow-x: auto;
             white-space: nowrap;
-            padding-bottom: 5px;
+            padding-bottom: 10px;
+            padding-top: 10px; /* 增加上方留白 */
             margin-bottom: 20px;
             -webkit-overflow-scrolling: touch;
             text-align: center;
+            
+            /* 新增 Sticky 屬性 */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--bg-color); /* 設置背景色避免透明重疊 */
+            border-bottom: 1px solid rgba(0,0,0,0.05); /* 增加一點分隔線感 */
         }
         .tabs {
             display: inline-flex;
@@ -314,6 +322,39 @@
         }
         .mystery-text { font-weight: bold; color: var(--primary-color); font-size: 1em; }
 
+        /* 新增：行李清單樣式 */
+        .checklist-list {
+            list-style: none; padding: 0; margin: 0;
+        }
+        .checklist-item {
+            background: white;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            border-left: 5px solid var(--accent-color);
+        }
+        .checklist-item i {
+            font-size: 1.5em;
+            color: var(--primary-color);
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+        .checklist-text {
+            font-size: 1.1em;
+            color: #333;
+            font-weight: 500;
+        }
+        .checklist-sub {
+            display: block;
+            font-size: 0.85em;
+            color: #777;
+            font-weight: normal;
+        }
+
         .form-section { background: white; padding: 20px; border-radius: 16px; margin-top: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
         .form-container { position: relative; overflow: hidden; width: 100%; padding-top: 100%; }
         .form-container iframe { position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; border: none; }
@@ -343,7 +384,6 @@
 </head>
 <body>
 
-    <!-- Lightbox 容器 -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
         <span class="close-lightbox">×</span>
         <img class="lightbox-content" id="lightbox-img">
@@ -357,7 +397,6 @@
         <h1>2025 年度尾牙暨年終教育訓練</h1>
         <p>專業精進 · 團隊凝聚 · 榮耀時刻</p>
         
-        <!-- 倒數計時器 (翻頁效果 + 結束訊息) -->
         <div class="countdown-container" id="countdown-wrapper">
             <div class="time-box"><span id="days" class="time-number">00</span><span class="time-label">Days</span></div>
             <div class="time-box"><span id="hours" class="time-number">00</span><span class="time-label">Hrs</span></div>
@@ -368,21 +407,19 @@
 
     <div class="container">
         
-        <!-- 滑動選單 -->
         <div class="tabs-wrapper">
             <div class="tabs">
                 <button class="tab-btn active" onclick="openTab(event, 'day1')">Day 1 (1/22)</button>
                 <button class="tab-btn" onclick="openTab(event, 'day2')">Day 2 (1/23)</button>
                 <button class="tab-btn" onclick="openTab(event, 'day3')">Day 3 (1/24)</button>
+                <button class="tab-btn" onclick="openTab(event, 'checklist')"><i class="fas fa-suitcase-rolling"></i> 行李清單</button>
                 <button class="tab-btn" onclick="openTab(event, 'other')"><i class="fas fa-info-circle"></i> 其他資訊</button>
             </div>
         </div>
 
-        <!-- Day 1 -->
         <div id="day1" class="content-section active">
             <div class="timeline">
                 
-                <!-- 午餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-utensils"></i></div>
                     <div class="timeline-content">
@@ -401,7 +438,6 @@
                     </div>
                 </div>
 
-                <!-- 教育訓練 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-chalkboard-teacher"></i></div>
                     <div class="timeline-content">
@@ -419,7 +455,6 @@
                     </div>
                 </div>
 
-                <!-- 晚餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-concierge-bell"></i></div>
                     <div class="timeline-content">
@@ -428,7 +463,8 @@
                         <div class="location-row"><i class="fas fa-utensils"></i> 湯悅溫泉會館餐廳</div>
                         <div class="desc-box" style="border-color: var(--secondary-color); background-color: #e3f2fd;">
                             ⚠️ <strong>重要提醒：</strong><br>
-                            請大家務必填寫 Google 表單選擇湯頭與肉品！
+                            請大家務必填寫 Google 表單選擇湯頭與肉品！<br>
+                            <span style="color: #c0392b; font-weight: bold; background: #fff; padding: 0 5px; border-radius: 4px; margin-top: 5px; display: inline-block;">⚠️ 請於 12/31 前填寫完成</span>
                         </div>
                         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfLr3xguRZqze_waXQSWjK-oNlW2J295LJz19SCBUhNGTi8ZQ/viewform?usp=dialog" target="_blank" class="btn-block btn-action">
                             <i class="fas fa-edit"></i> 填寫調查表
@@ -436,7 +472,6 @@
                     </div>
                 </div>
 
-                <!-- 泡湯 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-hot-tub"></i></div>
                     <div class="timeline-content">
@@ -458,11 +493,9 @@
             </div>
         </div>
 
-        <!-- Day 2 -->
         <div id="day2" class="content-section">
             <div class="timeline">
                 
-                <!-- 教育訓練 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-laptop-code"></i></div>
                     <div class="timeline-content">
@@ -475,7 +508,6 @@
                     </div>
                 </div>
 
-                <!-- 午餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-box-open"></i></div>
                     <div class="timeline-content">
@@ -485,7 +517,6 @@
                     </div>
                 </div>
 
-                <!-- 山訓 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-mountain"></i></div>
                     <div class="timeline-content">
@@ -512,13 +543,11 @@
                     </div>
                 </div>
 
-                <!-- 尾牙 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-wine-glass-alt"></i></div>
                     <div class="timeline-content">
                         <span class="time-tag">18:00 - 21:00</span>
                         <h3 class="event-title">🏆 年度尾牙晚宴</h3>
-                        <!-- 修正：移除連結，改為純文字，圖示改為乾杯 -->
                         <div class="location-row">
                             <div class="location-text">
                                 <i class="fas fa-glass-cheers"></i> 湯悅宴會廳
@@ -533,11 +562,9 @@
             </div>
         </div>
 
-        <!-- Day 3 -->
         <div id="day3" class="content-section">
             <div class="timeline">
                 
-                <!-- 退房 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-suitcase"></i></div>
                     <div class="timeline-content">
@@ -547,7 +574,6 @@
                     </div>
                 </div>
 
-                <!-- 棗莊午餐 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-utensils"></i></div>
                     <div class="timeline-content">
@@ -566,7 +592,6 @@
                     </div>
                 </div>
 
-                <!-- JEA 水彈 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-crosshairs"></i></div>
                     <div class="timeline-content">
@@ -614,7 +639,6 @@
                     </div>
                 </div>
 
-                <!-- 歸賦 -->
                 <div class="timeline-item">
                     <div class="timeline-icon"><i class="fas fa-home"></i></div>
                     <div class="timeline-content">
@@ -627,7 +651,42 @@
             </div>
         </div>
 
-        <!-- 其他資訊分頁 (Grid Layout) -->
+        <div id="checklist" class="content-section">
+            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 20px;">
+                <i class="fas fa-clipboard-check"></i> 行李準備清單
+            </h2>
+            <ul class="checklist-list">
+                <li class="checklist-item">
+                    <i class="fas fa-swimmer"></i>
+                    <div>
+                        <span class="checklist-text">泳衣、泳帽</span>
+                        <span class="checklist-sub">Day 1 露天風呂用</span>
+                    </div>
+                </li>
+                <li class="checklist-item">
+                    <i class="fas fa-hiking"></i>
+                    <div>
+                        <span class="checklist-text">運動鞋、長褲</span>
+                        <span class="checklist-sub">Day 2 山訓、Day 3 水彈用</span>
+                    </div>
+                </li>
+                <li class="checklist-item">
+                    <i class="fas fa-snowflake"></i>
+                    <div>
+                        <span class="checklist-text">保暖外套</span>
+                        <span class="checklist-sub">苗栗山區早晚溫差大</span>
+                    </div>
+                </li>
+                <li class="checklist-item">
+                    <i class="fas fa-pills"></i>
+                    <div>
+                        <span class="checklist-text">個人藥品</span>
+                        <span class="checklist-sub">暈車藥、常備藥等</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
         <div id="other" class="content-section">
             <div class="other-info-grid">
                 <div class="mystery-card">
@@ -684,35 +743,43 @@
             evt.currentTarget.className += " active";
         }
 
-        // 倒數計時邏輯 (活動結束後顯示訊息)
-        const targetDate = new Date("Jan 22, 2026 00:00:00").getTime();
+        // 修改後的倒數計時邏輯 (包含活動進行中狀態)
+        // 活動開始時間：2026/01/22 00:00
+        const startDate = new Date("Jan 22, 2026 00:00:00").getTime();
+        // 活動結束時間：2026/01/24 23:59 (Day 3 結束)
+        const endDate = new Date("Jan 24, 2026 23:59:59").getTime();
         
-        // 變數用來追蹤上一次的數字，以便觸發翻頁動畫
         let prevDays = -1, prevHours = -1, prevMins = -1, prevSecs = -1;
 
         const timerInterval = setInterval(function() {
             const now = new Date().getTime();
-            const distance = targetDate - now;
             
-            // 活動結束後的處理
-            if (distance < 0) {
+            // 情況 1: 活動已完全結束
+            if (now > endDate) {
                 clearInterval(timerInterval);
                 document.getElementById("countdown-wrapper").innerHTML = "<div style='color:white; font-size:1.5em; font-weight:bold; text-shadow:0 2px 4px rgba(0,0,0,0.2); padding:10px;'>🎉 活動圓滿結束</div>";
                 return;
             }
 
+            // 情況 2: 活動進行中 (介於開始與結束之間)
+            if (now >= startDate && now <= endDate) {
+                clearInterval(timerInterval);
+                document.getElementById("countdown-wrapper").innerHTML = "<div style='color:white; font-size:1.5em; font-weight:bold; text-shadow:0 2px 4px rgba(0,0,0,0.2); padding:10px;'>🔥 活動進行中 Enjoy the Party!</div>";
+                return;
+            }
+
+            // 情況 3: 尚未開始，進行倒數
+            const distance = startDate - now;
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // 更新數字並檢查是否需要動畫
             updateTime("days", days, prevDays);
             updateTime("hours", hours, prevHours);
             updateTime("minutes", minutes, prevMins);
             updateTime("seconds", seconds, prevSecs);
 
-            // 更新前次數值
             prevDays = days;
             prevHours = hours;
             prevMins = minutes;
@@ -720,17 +787,14 @@
 
         }, 1000);
 
-        // 輔助函式：更新時間並觸發動畫
         function updateTime(id, newVal, oldVal) {
             const el = document.getElementById(id);
-            // 補零
             const formattedVal = newVal < 10 ? "0" + newVal : newVal;
             
             if (newVal !== oldVal) {
                 el.innerText = formattedVal;
-                // 移除再加入 class 以重啟動畫
                 el.classList.remove("flip");
-                void el.offsetWidth; // 觸發 reflow
+                void el.offsetWidth;
                 el.classList.add("flip");
             }
         }
