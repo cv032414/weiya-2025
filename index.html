@@ -137,25 +137,35 @@
             z-index: 5;
         }
 
-        /* --- 分頁按鈕 (Sticky) --- */
+        /* --- 分頁按鈕 (Sticky) - 優化滑動順暢度 --- */
         .tabs-wrapper {
+            /* 改用 Flex 佈局以獲得更好的滑動體驗 */
+            display: flex;
             overflow-x: auto;
-            white-space: nowrap;
             padding-bottom: 10px;
             padding-top: 10px;
             margin-bottom: 20px;
-            -webkit-overflow-scrolling: touch;
-            text-align: center;
+            -webkit-overflow-scrolling: touch; /* 保持 iOS 慣性滑動 */
             position: sticky;
             top: 0;
             z-index: 100;
             background-color: var(--bg-color);
             border-bottom: 1px solid rgba(0,0,0,0.05);
+            
+            /* 隱藏捲軸，讓畫面更乾淨 (選用) */
+            scrollbar-width: none; /* Firefox */
         }
+        .tabs-wrapper::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
         .tabs {
-            display: inline-flex;
+            display: flex;
             gap: 10px;
-            padding: 0 5px;
+            padding: 0 15px; /* 增加兩側內距，避免按鈕貼邊 */
+            /* 關鍵：利用 margin: auto 讓按鈕較少時置中，較多時可正常滑動 */
+            margin: 0 auto; 
+            width: max-content; /* 確保寬度依內容撐開 */
         }
         .tab-btn {
             background: white;
@@ -765,8 +775,16 @@
             document.getElementById(tabName).className += " active";
             evt.currentTarget.className += " active";
             
-            // 新增：切換頁籤後回到頁面頂端
-            window.scrollTo(0, 0); 
+            // --- 優化：切換後定位到選單下方，而不是回到最頂端 ---
+            var tabsContainer = document.querySelector('.tabs-wrapper');
+            // 取得選單距離文件頂端的位置
+            var targetPosition = tabsContainer.getBoundingClientRect().top + window.pageYOffset;
+            
+            // 執行平滑捲動
+            window.scrollTo({
+                top: targetPosition, 
+                behavior: 'smooth'
+            });
         }
 
         // 倒數計時邏輯 (包含活動進行中狀態)
