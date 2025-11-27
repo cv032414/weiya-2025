@@ -137,48 +137,51 @@
             z-index: 5;
         }
 
-        /* --- 分頁按鈕 (Sticky) - 優化滑動與定位 --- */
+        /* --- 分頁按鈕 (Sticky) - 極致滑順優化版 --- */
         .tabs-wrapper {
-            /* 1. 改用 Flex 佈局，解決 inline-block 造成的滑動卡頓 */
-            display: flex;
-            
-            /* 2. 關鍵屬性：自動左右邊距，讓內容少時置中，內容多時可滑動 */
-            /* 配合偽元素使用，見下方 */
-            
+            width: 100%;
+            /* 1. 設定容器可滾動 */
             overflow-x: auto;
-            padding-bottom: 10px;
-            padding-top: 10px;
-            margin-bottom: 20px;
-            
-            /* 3. 強制開啟 iOS 慣性滑動 */
+            /* 2. 關鍵：開啟 iOS 慣性滾動，手感才會有彈性 */
             -webkit-overflow-scrolling: touch; 
             
             position: sticky;
             top: 0;
             z-index: 100;
             background-color: var(--bg-color);
+            padding: 10px 0; /* 上下留白 */
             border-bottom: 1px solid rgba(0,0,0,0.05);
             
-            /* 隱藏捲軸 */
+            /* 隱藏滾動條 - 視覺更乾淨 */
             scrollbar-width: none;
+            -ms-overflow-style: none;
         }
         .tabs-wrapper::-webkit-scrollbar {
             display: none;
         }
-        
-        /* 4. 黑魔法：利用偽元素 margin: auto 達成「少則置中，多則滑動」的效果 */
-        .tabs-wrapper::before,
-        .tabs-wrapper::after {
-            content: '';
-            margin: auto;
-        }
 
         .tabs {
-            display: flex;
+            /* 3. 使用 inline-flex 讓寬度可以超過父容器，這是滑動順暢的關鍵 */
+            display: inline-flex;
             gap: 10px;
-            padding: 0 5px;
-            /* 確保寬度依內容撐開 */
-            width: max-content;
+            /* 4. 在兩側增加內距，讓滑動時第一個和最後一個不會貼邊 */
+            padding: 0 20px;
+            /* 確保最小寬度佔滿螢幕 */
+            min-width: 100%;
+            box-sizing: border-box;
+            
+            /* 5. 手機版預設靠左排列，這是最自然的滑動方式 */
+            justify-content: flex-start;
+        }
+
+        /* 6. 電腦版 (螢幕較寬時) 改為置中，因為通常不需要滑動 */
+        @media (min-width: 768px) {
+            .tabs {
+                display: flex; /* 改回 block flex */
+                width: 100%;
+                justify-content: center;
+                padding: 0; /* 移除額外內距 */
+            }
         }
         
         .tab-btn {
@@ -193,9 +196,8 @@
             transition: all 0.3s ease;
             white-space: nowrap;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            
-            /* 5. 防止按鈕縮小，確保觸控面積 */
-            flex: 0 0 auto; 
+            /* 防止按鈕被壓縮 */
+            flex-shrink: 0; 
         }
         .tab-btn.active {
             background-color: var(--primary-color);
@@ -792,10 +794,9 @@
             document.getElementById(tabName).className += " active";
             evt.currentTarget.className += " active";
             
-            // --- 優化：切換後強制捲動到 Container 頂部 ---
-            // 說明：不使用 tabs-wrapper 的位置(因為它會 sticky 變成 0)，而是使用整個 container 的起始位置。
-            // 這樣即使滑到下面，點擊分頁也會自動回彈到選單下方開始的第一個行程。
+            // --- 優化：切換後強制捲動到 Container 頂部 (修正後邏輯) ---
             var container = document.querySelector('.container');
+            // 取得容器距離文件最上方的距離
             var targetPosition = container.offsetTop;
             
             window.scrollTo({
@@ -804,7 +805,7 @@
             });
         }
 
-        // 倒數計時邏輯 (包含活動進行中狀態)
+        // 倒數計時邏輯
         const startDate = new Date("Jan 22, 2026 00:00:00").getTime();
         const endDate = new Date("Jan 24, 2026 23:59:59").getTime();
         
@@ -813,21 +814,18 @@
         const timerInterval = setInterval(function() {
             const now = new Date().getTime();
             
-            // 情況 1: 活動已完全結束
             if (now > endDate) {
                 clearInterval(timerInterval);
                 document.getElementById("countdown-wrapper").innerHTML = "<div style='color:white; font-size:1.5em; font-weight:bold; text-shadow:0 2px 4px rgba(0,0,0,0.2); padding:10px;'>🎉 活動圓滿結束</div>";
                 return;
             }
 
-            // 情況 2: 活動進行中 (介於開始與結束之間)
             if (now >= startDate && now <= endDate) {
                 clearInterval(timerInterval);
                 document.getElementById("countdown-wrapper").innerHTML = "<div style='color:white; font-size:1.5em; font-weight:bold; text-shadow:0 2px 4px rgba(0,0,0,0.2); padding:10px;'>🔥 活動進行中 Enjoy the Party!</div>";
                 return;
             }
 
-            // 情況 3: 尚未開始，進行倒數
             const distance = startDate - now;
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
