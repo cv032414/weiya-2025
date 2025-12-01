@@ -109,20 +109,27 @@
             width: 100%;
         }
 
-        /* --- 分頁按鈕 (Sticky) --- */
-        .tabs-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch; 
-            position: sticky;
+        /* --- 分頁按鈕與導航容器 (Sticky) [修改版] --- */
+        .tabs-container {
+            position: sticky; /* Sticky 移到外層容器 */
             top: 0;
             z-index: 100;
             background-color: var(--bg-color);
             padding: 10px 0;
             border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .tabs-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch; 
             scrollbar-width: none;
             cursor: grab;
             user-select: none;
+            scroll-behavior: smooth; /* 讓箭頭點擊時平滑捲動 */
         }
         .tabs-wrapper:active { cursor: grabbing; }
         .tabs-wrapper::-webkit-scrollbar { display: none; }
@@ -133,6 +140,30 @@
             padding: 0 5px;
             min-width: 100%;
         }
+
+        /* 導航箭頭按鈕樣式 */
+        .nav-btn {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 101;
+            margin: 0 5px;
+            transition: all 0.2s ease;
+            outline: none;
+            opacity: 1;
+        }
+        .nav-btn:hover { background-color: var(--primary-color); color: white; transform: scale(1.1); }
+        .nav-btn:active { transform: scale(0.95); }
+        .nav-btn.hidden { opacity: 0; pointer-events: none; } /* 隱藏狀態 */
 
         .tab-btn {
             background: white;
@@ -488,7 +519,7 @@
             }
         }
         
-        /* 手機版 Footer 優化：隱藏分隔線，強制換行 */
+        /* 手機版 Footer 優化與隱藏導航箭頭 */
         @media (max-width: 480px) {
             .footer-divider { display: none; }
             #update-time { display: block; margin-top: 2px; }
@@ -500,6 +531,11 @@
                 width: 55px;
                 height: 55px;
             }
+        }
+        
+        /* 手機版隱藏左右箭頭，保留滑動 */
+        @media (max-width: 767px) {
+            .nav-btn { display: none !important; }
         }
 
         /* RWD 調整 */
@@ -558,16 +594,21 @@
 
     <div class="container">
         
-        <div class="tabs-wrapper">
-            <div class="tabs">
-                <button class="tab-btn active" onclick="openTab(event, 'day1')">Day 1 (1/22)</button>
-                <button class="tab-btn" onclick="openTab(event, 'day2')">Day 2 (1/23)</button>
-                <button class="tab-btn" onclick="openTab(event, 'day3')">Day 3 (1/24)</button>
-                <button class="tab-btn" onclick="openTab(event, 'edu-schedule')">教育訓練時程表</button>
-                <button class="tab-btn" onclick="openTab(event, 'checklist')"><i class="fas fa-suitcase-rolling"></i> 行李清單</button>
-                <button class="tab-btn" onclick="openTab(event, 'other')"><i class="fas fa-info-circle"></i> 其他資訊</button>
-                <button class="tab-btn" onclick="openTab(event, 'travel')"><i class="fas fa-plane"></i> 國外員工旅遊</button>
+        <!-- 修改後的分頁按鈕結構 -->
+        <div class="tabs-container">
+            <button class="nav-btn prev-btn" id="prevBtn" aria-label="往左捲動"><i class="fas fa-chevron-left"></i></button>
+            <div class="tabs-wrapper" id="tabsWrapper">
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="openTab(event, 'day1')">Day 1 (1/22)</button>
+                    <button class="tab-btn" onclick="openTab(event, 'day2')">Day 2 (1/23)</button>
+                    <button class="tab-btn" onclick="openTab(event, 'day3')">Day 3 (1/24)</button>
+                    <button class="tab-btn" onclick="openTab(event, 'edu-schedule')">教育訓練時程表</button>
+                    <button class="tab-btn" onclick="openTab(event, 'checklist')"><i class="fas fa-suitcase-rolling"></i> 行李清單</button>
+                    <button class="tab-btn" onclick="openTab(event, 'other')"><i class="fas fa-info-circle"></i> 其他資訊</button>
+                    <button class="tab-btn" onclick="openTab(event, 'travel')"><i class="fas fa-plane"></i> 國外員工旅遊</button>
+                </div>
             </div>
+            <button class="nav-btn next-btn" id="nextBtn" aria-label="往右捲動"><i class="fas fa-chevron-right"></i></button>
         </div>
 
         <div id="day1" class="content-section active">
@@ -1337,7 +1378,49 @@
                 }
             }
 
-            // 滑鼠拖曳捲動 Tabs 選單
+            // --- 新增：左右箭頭導航邏輯 ---
+            const tabsWrapper = document.getElementById('tabsWrapper');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const scrollAmount = 200; // 每次點擊捲動的距離
+
+            if (prevBtn && nextBtn && tabsWrapper) {
+                // 左按鈕點擊
+                prevBtn.addEventListener('click', () => {
+                    tabsWrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                });
+
+                // 右按鈕點擊
+                nextBtn.addEventListener('click', () => {
+                    tabsWrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                });
+
+                // 檢查是否需要顯示按鈕的函式
+                const checkScroll = () => {
+                    // 最左邊隱藏左按鈕
+                    if (tabsWrapper.scrollLeft <= 10) {
+                        prevBtn.classList.add('hidden');
+                    } else {
+                        prevBtn.classList.remove('hidden');
+                    }
+
+                    // 最右邊隱藏右按鈕 (scrollWidth - clientWidth = 最大捲動值)
+                    if (tabsWrapper.scrollLeft >= (tabsWrapper.scrollWidth - tabsWrapper.clientWidth - 10)) {
+                        nextBtn.classList.add('hidden');
+                    } else {
+                        nextBtn.classList.remove('hidden');
+                    }
+                };
+
+                // 監聽捲動與視窗大小變化
+                tabsWrapper.addEventListener('scroll', checkScroll);
+                window.addEventListener('resize', checkScroll);
+                
+                // 初始化檢查
+                checkScroll();
+            }
+
+            // 滑鼠拖曳捲動 Tabs 選單 (保留原本功能)
             const slider = document.querySelector('.tabs-wrapper');
             let isDown = false;
             let startX;
