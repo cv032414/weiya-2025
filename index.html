@@ -301,6 +301,76 @@
         }
         .mystery-text { font-weight: bold; color: var(--primary-color); }
 
+        /* --- 新增/更新：其他資訊區塊樣式 --- */
+        .info-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid #eee;
+        }
+        .info-title {
+            text-align: center;
+            color: var(--primary-color);
+            border-bottom: 2px dashed #eee;
+            padding-bottom: 15px;
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+        
+        /* 尾牙座位表樣式 */
+        .tables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+        }
+        .table-item {
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .table-item h4 { margin: 0 0 10px 0; font-size: 1.1em; color: #333; }
+        .table-item p { margin: 0; font-size: 0.95em; line-height: 1.6; color: #555; }
+        
+        /* 車輛安排樣式 */
+        .location-header {
+            background: #f0f4f8;
+            padding: 8px 15px;
+            border-radius: 6px;
+            margin: 20px 0 10px 0;
+            color: #333;
+            border-left: 4px solid var(--primary-color);
+        }
+        .car-list { list-style: none; padding: 0; margin: 0; }
+        .car-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .car-list li:last-child { border-bottom: none; }
+        
+        .car-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            color: white;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-right: 8px;
+            min-width: 80px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .car-badge.self { background-color: #e74c3c; } /* 自備車 */
+        .car-badge.company { background-color: #0060a9; } /* 公司車 */
+        .car-passengers { flex: 1; margin-left: 4px; }
+
         /* 行李清單 */
         .checklist-list { list-style: none; padding: 0; margin: 0; }
         .checklist-item {
@@ -594,7 +664,6 @@
 
     <div class="container">
         
-        <!-- 修改後的分頁按鈕結構 -->
         <div class="tabs-container">
             <button class="nav-btn prev-btn" id="prevBtn" aria-label="往左捲動"><i class="fas fa-chevron-left"></i></button>
             <div class="tabs-wrapper" id="tabsWrapper">
@@ -1007,7 +1076,7 @@
                             <div class="edu-header">
                                 <div class="edu-time">08:30~08:50</div>
                                 <div class="edu-title-group">
-                                    <div class="edu-topic">Horiba TOC Tocadero EVO <span class="badge-tag tag-product">產品</span></div>
+                                    <div class="edu-topic">Horiba TOC <span class="badge-tag tag-product">產品</span></div>
                                     <div class="edu-speaker"><span>主講</span> 徐紹銘 總經理</div>
                                 </div>
                                 <i class="fas fa-chevron-down edu-icon"></i>
@@ -1021,7 +1090,7 @@
                             <div class="edu-header">
                                 <div class="edu-time">08:50~09:10</div>
                                 <div class="edu-title-group">
-                                    <div class="edu-topic">Horiba NH3 電極法 <span class="badge-tag tag-product">產品</span></div>
+                                    <div class="edu-topic">Horiba NH₄⁺ 電極法 <span class="badge-tag tag-product">產品</span></div>
                                     <div class="edu-speaker"><span>主講</span> 邱永慶 資深業務</div>
                                 </div>
                                 <i class="fas fa-chevron-down edu-icon"></i>
@@ -1095,6 +1164,13 @@
             </h2>
             <ul class="checklist-list">
                 <li class="checklist-item">
+                    <i class="fas fa-tooth"></i>
+                    <div>
+                        <span class="checklist-text">個人盥洗用品 (牙刷、牙膏)</span>
+                        <span class="checklist-sub" style="color: #c0392b; font-weight: bold;">⚠️ 響應環保，飯店不提供一次性備品，請務必自行攜帶</span>
+                    </div>
+                </li>
+                <li class="checklist-item">
                     <i class="fas fa-tshirt"></i>
                     <div>
                         <span class="checklist-text">公司制服 (最新灰色款)</span>
@@ -1149,29 +1225,161 @@
 
         <div id="other" class="content-section">
             <h3 style="margin-top: 20px; margin-bottom: 20px; color: #666; font-size: 1.1em; border-left: 4px solid #ccc; padding-left: 10px;">
-                即將公開資訊
+                活動相關資訊
             </h3>
             
             <div class="other-info-grid">
-                <div class="mystery-card">
-                    <div class="mystery-overlay"><i class="fas fa-bed"></i> <span class="mystery-text">房型分配名單 (待公布...)</span></div>
-                    <div class="mystery-content">
-                        <h3>房型名單</h3><p>名單確認中...</p><p>名單確認中...</p>
+                
+                <div class="info-card">
+                    <h3 class="info-title"><i class="fas fa-bed"></i> 房型分配名單</h3>
+                    
+                    <h4 style="color: #0060a9; border-left: 4px solid #0060a9; padding-left: 10px; margin: 20px 0 15px;">👦 男生宿舍</h4>
+                    <div class="tables-grid">
+                        <div class="table-item">
+                            <h4 style="font-size: 1.8em; color: var(--primary-color); margin: 0;">2208</h4>
+                            <p style="font-size: 0.85em; color: #999; margin-bottom: 8px;">2人房</p>
+                            <p style="font-weight: bold;">徐紹銘、林良諺</p>
+                        </div>
+                        <div class="table-item">
+                            <h4 style="font-size: 1.8em; color: var(--primary-color); margin: 0;">2206</h4>
+                            <p style="font-size: 0.85em; color: #999; margin-bottom: 8px;">2人房</p>
+                            <p style="font-weight: bold;">徐紹勛、董昆祈</p>
+                        </div>
+
+                        <div class="table-item">
+                            <h4 style="font-size: 1.8em; color: var(--primary-color); margin: 0;">3307</h4>
+                            <p style="font-size: 0.85em; color: #999; margin-bottom: 8px;">4人房</p>
+                            <p style="font-weight: bold;">邱斌兼、林向昇<br>陳明煌、蔡忠麟</p>
+                        </div>
+                        <div class="table-item">
+                            <h4 style="font-size: 1.8em; color: var(--primary-color); margin: 0;">3306</h4>
+                            <p style="font-size: 0.85em; color: #999; margin-bottom: 8px;">4人房</p>
+                            <p style="font-weight: bold;">廖清賢、杜宗錡<br>蔡孟憲、邱煜方</p>
+                        </div>
+                        <div class="table-item">
+                            <h4 style="font-size: 1.8em; color: var(--primary-color); margin: 0;">3305</h4>
+                            <p style="font-size: 0.85em; color: #999; margin-bottom: 8px;">4人房</p>
+                            <p style="font-weight: bold;">黃琦倫、王試涵<br>林昱翔</p>
+                        </div>
+                        <div class="table-item">
+                            <h4 style="font-size: 1.8em; color: var(--primary-color); margin: 0;">3303</h4>
+                            <p style="font-size: 0.85em; color: #999; margin-bottom: 8px;">4人房</p>
+                            <p style="font-weight: bold;">邱耀德、葉信宏<br>何濬宇、顏竹良</p>
+                        </div>
+                        <div class="table-item">
+                            <h4 style="font-size: 1.8em; color: var(--primary-color); margin: 0;">3302</h4>
+                            <p style="font-size: 0.85em; color: #999; margin-bottom: 8px;">4人房</p>
+                            <p style="font-weight: bold;">沈政宏、吳主力<br>邱永慶、徐路亞</p>
+                        </div>
+                        <div class="table-item">
+                            <h4 style="font-size: 1.8em; color: var(--primary-color); margin: 0;">3301</h4>
+                            <p style="font-size: 0.85em; color: #999; margin-bottom: 8px;">4人房</p>
+                            <p style="font-weight: bold;">呂健全、林政樵<br>黃金銘、陳佑儒</p>
+                        </div>
+                    </div>
+
+                    <h4 style="color: #c0392b; border-left: 4px solid #c0392b; padding-left: 10px; margin: 30px 0 15px;">👧 女生宿舍</h4>
+                    <div class="tables-grid">
+                        <div class="table-item">
+                            <h4 style="font-size: 1.8em; color: #c0392b; margin: 0;">2202</h4>
+                            <p style="font-size: 0.85em; color: #999; margin-bottom: 8px;">2人房</p>
+                            <p style="font-weight: bold;">張嘉玲、陳玉萍</p>
+                        </div>
+
+                        <div class="table-item">
+                            <h4 style="font-size: 1.8em; color: #c0392b; margin: 0;">3203</h4>
+                            <p style="font-size: 0.85em; color: #999; margin-bottom: 8px;">4人房</p>
+                            <p style="font-weight: bold;">嚴怡珍、王靖惠<br>陳宇欣、胡蕙君</p>
+                        </div>
+                        <div class="table-item">
+                            <h4 style="font-size: 1.8em; color: #c0392b; margin: 0;">3202</h4>
+                            <p style="font-size: 0.85em; color: #999; margin-bottom: 8px;">4人房</p>
+                            <p style="font-weight: bold;">吳純宜、林佳慧<br>洪承妍、宋采恩</p>
+                        </div>
+                        <div class="table-item">
+                            <h4 style="font-size: 1.8em; color: #c0392b; margin: 0;">3201</h4>
+                            <p style="font-size: 0.85em; color: #999; margin-bottom: 8px;">4人房</p>
+                            <p style="font-weight: bold;">李華瑩、鍾婉意<br>徐滋妤、黃怡真</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="mystery-card">
-                    <div class="mystery-overlay"><i class="fas fa-chair"></i> <span class="mystery-text">尾牙座位表 (待公布...)</span></div>
-                    <div class="mystery-content">
-                        <h3>座位名單</h3><p>座位安排中...</p><p>座位安排中...</p>
+                <div class="info-card">
+                    <h3 class="info-title"><i class="fas fa-utensils"></i> 尾牙座位表</h3>
+                    <div class="tables-grid">
+                        <div class="table-item">
+                            <h4 style="color: #c0392b;">🔴 第 1 桌</h4>
+                            <p>徐紹銘、邱斌兼、嚴怡珍、沈政宏<br>林向昇、吳純宜、鍾婉意、何濬宇<br>陳明煌、黃金銘、宋采恩</p>
+                        </div>
+                        <div class="table-item">
+                            <h4 style="color: #e67e22;">🟠 第 2 桌</h4>
+                            <p>徐紹勛、廖清賢、黃琦倫、邱耀德<br>陳宇欣、徐路亞、徐滋妤、蔡忠麟<br>黃怡真、邱煜方</p>
+                        </div>
+                        <div class="table-item">
+                            <h4 style="color: #f1c40f;">🟡 第 3 桌</h4>
+                            <p>林良諺、王靖惠、葉信宏、吳主力<br>林昱翔、杜宗錡、林佳慧、胡蕙君<br>洪承妍、陳佑儒</p>
+                        </div>
+                        <div class="table-item">
+                            <h4 style="color: #27ae60;">🟢 第 4 桌</h4>
+                            <p>張嘉玲、陳玉萍、王試涵、董昆祈<br>呂健全、李華瑩、邱永慶、顏竹良<br>蔡孟憲、林政樵</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="mystery-card">
-                    <div class="mystery-overlay"><i class="fas fa-car"></i> <span class="mystery-text">車輛安排名單 (待公布...)</span></div>
-                    <div class="mystery-content">
-                        <h3>車輛名單</h3><p>車輛調度中...</p><p>車輛調度中...</p>
-                    </div>
+                <div class="info-card">
+                    <h3 class="info-title"><i class="fas fa-car"></i> 車輛安排</h3>
+                    
+                    <h4 class="location-header">📍 台北出發</h4>
+                    <ul class="car-list">
+                        <li>
+                            <span class="car-badge self">Car 1 [自備車]</span> 
+                            <span class="car-passengers">徐路亞、徐紹銘、徐紹勛</span>
+                        </li>
+                        <li>
+                            <span class="car-badge self">Car 2 [自備車]</span> 
+                            <span class="car-passengers">邱永慶、吳純宜、陳宇欣、宋采恩</span>
+                        </li>
+                        <li>
+                            <span class="car-badge company">Car 3 [公司車]</span> 
+                            <span class="car-passengers">邱煜方、廖清賢、呂健全、鍾婉意</span>
+                        </li>
+                        <li>
+                            <span class="car-badge company">Car 4 [公司車]</span> 
+                            <span class="car-passengers">葉信宏、邱斌兼、林向昇、蔡忠麟</span>
+                        </li>
+                        <li>
+                            <span class="car-badge company">Car 5 [公司車]</span> 
+                            <span class="car-passengers">黃金銘、張嘉玲、陳玉萍、李華瑩</span>
+                        </li>
+                        <li>
+                            <span class="car-badge company">Car 6 [公司車]</span> 
+                            <span class="car-passengers">顏竹良、邱耀德、何濬宇</span>
+                        </li>
+                    </ul>
+
+                    <h4 class="location-header">📍 台中出發</h4>
+                    <ul class="car-list">
+                        <li>
+                            <span class="car-badge company">Car 7 [公司車]</span> 
+                            <span class="car-passengers">林政樵、林良諺、嚴怡珍、王靖惠</span>
+                        </li>
+                        <li>
+                            <span class="car-badge company">Car 8 [公司車]</span> 
+                            <span class="car-passengers">蔡孟憲、董昆祈、王試涵、吳主力</span>
+                        </li>
+                        <li>
+                            <span class="car-badge company">Car 9 [公司車]</span> 
+                            <span class="car-passengers">陳佑儒、沈政宏、林昱翔</span>
+                        </li>
+                        <li>
+                            <span class="car-badge self">Car 10 [自備車]</span> 
+                            <span class="car-passengers">黃琦倫、胡蕙君、洪承妍、黃怡真</span>
+                        </li>
+                        <li>
+                            <span class="car-badge self">Car 11 [自備車]</span> 
+                            <span class="car-passengers">杜宗錡、林佳慧、徐滋妤、陳明煌</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -1230,8 +1438,12 @@
                         </div>
 
                         <div class="travel-footer">
-                            <span class="coming-soon-badge">敬請期待，我們泰國見！</span>
-                            <span class="coming-soon-sub">詳細行程將於本次尾牙前公佈</span>
+                            <div style="margin-bottom: 15px; font-weight: bold; color: #555; font-size: 1em;">
+                                ✈️ 華航直飛 · 🏨 保證入住星際主題飯店 · 🦞 海鮮吃到飽
+                            </div>
+                            <a href="2026_Thailand_Itinerary.pdf" target="_blank" class="coming-soon-badge" style="text-decoration: none; display: inline-flex; align-items: center; transition: transform 0.2s;">
+                                <i class="fas fa-file-pdf" style="margin-right: 8px;"></i> 下載 2026 泰國 5 日遊詳細行程 (PDF)
+                            </a>
                         </div>
                     </div>
                 </div>
